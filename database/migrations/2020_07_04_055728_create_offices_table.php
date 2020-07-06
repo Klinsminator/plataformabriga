@@ -16,6 +16,11 @@ class CreateOfficesTable extends Migration
         Schema::create('offices', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
+            $table->string('phone_primary');
+            $table->string('phone_secondary');
+            $table->string('email');
+            $table->text('address');
         });
     }
 

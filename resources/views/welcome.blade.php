@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    @include('includes.head_Login_v1')
+    <head>
+        <title>PA | Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        @include('includes.head_Login_v1')
+    </head>
     <body>
         <div class="limiter">
             <div class="container-login100">
@@ -8,50 +13,39 @@
                     <div class="login100-pic js-tilt" data-tilt>
                         <img src="{{asset ("images/img-01.png")}}" alt="IMG">
                     </div>
-
-                    <form class="login100-form validate-form">
+                    <!-- SIGNIN FORM -->
+                    @include('includes.message_block')
+                    <form class="login100-form validate-form" action="{{ route('signin') }}" method="post">
                         <span class="login100-form-title">
-                            Member Login
+                            Plataforma Abriga
                         </span>
-
-                        <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                            <input class="input100" type="text" name="email" placeholder="Email">
+                        <div class="wrap-input100 validate-input {{ $errors->has('username') ? 'has-error' : '' }}" data-validate = "Nombre de usuario requerido">
+                            <input class="input100" type="text" name="username" placeholder="Usuario" value="{{ Request::old('username') }}">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
-                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <i class="fa fa-user" aria-hidden="true"></i>
                             </span>
                         </div>
-
-                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                            <input class="input100" type="password" name="pass" placeholder="Password">
+                        <div class="wrap-input100 validate-input {{ $errors->has('password') ? 'has-error' : '' }}" data-validate = "Contraseña requerida">
+                            <input class="input100" type="password" name="password" placeholder="Contraseña" value="{{ Request::old('password') }}">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                             </span>
                         </div>
-
                         <div class="container-login100-form-btn">
                             <button class="login100-form-btn">
-                                Login
+                                Entrar
                             </button>
+                            <input type="hidden" name="_token" value="{{ Session::token() }}">
                         </div>
-
-                        <div class="text-center p-t-12">
-                            <span class="txt1">
-                                Forgot
-                            </span>
-                            <a class="txt2" href="#">
-                                Username / Password?
-                            </a>
-                        </div>
-
                         <div class="text-center p-t-136">
-                            <a class="txt2" href="#">
-                                Create your Account
-                                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                            </a>
+                            <span class="txt1">
+                                En caso de problemas, contactar a soporte@abrigacr.com
+                            </span>
                         </div>
                     </form>
+                    <!-- SIGNIN FORM -->
                 </div>
             </div>
         </div>

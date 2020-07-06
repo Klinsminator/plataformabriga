@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRecomendationAreasTable extends Migration
+class CreateRecommendationAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateRecomendationAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('recomendation_areas', function (Blueprint $table) {
+        Schema::create('recommendation_areas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateRecomendationAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recomendation_areas');
+        Schema::dropIfExists('recommendation_areas');
     }
 }

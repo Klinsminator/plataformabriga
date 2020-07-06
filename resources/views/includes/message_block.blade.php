@@ -1,5 +1,6 @@
+<div class="row">
 @if(count($errors) > 0)
-    <div class="wrap-input100 validate-input">
+    <div class="text-center margin-bottom-20 center_div">
         <ul>
             @foreach($errors->all() as $error)
                 <li style="color: red">
@@ -10,3 +11,9 @@
         </ul>
     </div>
 @endif
+@if(Session::has('message'))
+    <span class="text-center margin-bottom-20 center_div" style="color: green">
+        {{Session::get('message')}}
+    </span>
+@endif
+</div>

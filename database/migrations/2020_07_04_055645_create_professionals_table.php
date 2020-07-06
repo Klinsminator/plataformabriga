@@ -16,6 +16,14 @@ class CreateProfessionalsTable extends Migration
         Schema::create('professionals', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('names');
+            $table->string('last_names');
+            $table->string('title');
+            $table->string('profession');
+            $table->string('email');
+            $table->string('phone');
+            $table->bigInteger('recommendation_area_id');
+            $table->bigInteger('office_id');
         });
     }
 
