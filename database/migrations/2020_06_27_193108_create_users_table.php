@@ -13,13 +13,14 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        // on user_type_id, this should match the tables name + _id
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->timestamp('last_sign_in');
             $table->string('names');
             $table->string('last_names');
-            $table->string('type');
+            $table->integer('user_type_id');
             $table->string('email');
             $table->string('username');
             $table->string('password');

@@ -5,44 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ee26c5cf-b9d7-47ff-ac6e-b1e946ac569f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/PA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PA.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OfficeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OfficeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProfessionalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProfessionalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RecommendationAreaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RecommendationAreaController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserTypeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/RecommendationArea.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/RecommendationArea.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_19_000000_create_failed_jobs_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/UserType.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/UserType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_27_193108_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_27_193108_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_02_032325_create_user_types_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_02_032325_create_user_types_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_04_053833_create_symptoms_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_04_053833_create_symptoms_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_04_055346_create_recommendation_areas_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_04_055346_create_recommendation_areas_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_04_055645_create_professionals_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_04_055645_create_professionals_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_07_04_055728_create_offices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_07_04_055728_create_offices_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/dataTables.bootstrap4.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/datatables.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/dataTables.bootstrap4.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/datatables.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/jquery.dataTables.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/_main_Login_v1.sass" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/_main_Login_v1.sass" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/admin_navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/admin_navbar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/datatables.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/datatables.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/head_Login_v1.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/head_Login_v1.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/message_block.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/message_block.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/professionals/professionals.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/professionals/professionals.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/scripts/datatables.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/scripts/datatables.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/users/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/users/users.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +196,7 @@
       <workItem from="1593064543724" duration="2352000" />
       <workItem from="1593282621474" duration="6039000" />
       <workItem from="1593298008151" duration="46085000" />
-      <workItem from="1593823546499" duration="37661000" />
+      <workItem from="1593823546499" duration="55107000" />
     </task>
     <servers />
   </component>
@@ -257,9 +226,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="910" y="375" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/-1366.74.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1593886461753" />
-    <state x="835" y="354" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1593908581830">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-772" y="312" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1594090715759">
+      <screen x="-1366" y="74" width="1366" height="728" />
     </state>
+    <state x="-772" y="312" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1366.74.1366.728/0.0.1920.1040@-1366.74.1366.728" timestamp="1594090715759" />
     <state x="835" y="354" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1366.74.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1593908581830" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1593065886954">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -294,10 +264,10 @@
     </state>
     <state x="-1038" y="91" key="SettingsEditor/-1366.74.1366.728/0.0.1920.1040@-1366.74.1366.728" timestamp="1593283931520" />
     <state x="461" y="164" key="SettingsEditor/-1366.74.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1593065895550" />
-    <state x="610" y="0" width="823" height="1040" key="find.popup" timestamp="1593923238303">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-844" y="74" width="585" height="728" key="find.popup" timestamp="1594182093449">
+      <screen x="-1366" y="74" width="1366" height="728" />
     </state>
-    <state x="-844" y="74" width="585" height="728" key="find.popup/-1366.74.1366.728/0.0.1920.1040@-1366.74.1366.728" timestamp="1593668451321" />
+    <state x="-844" y="74" width="585" height="728" key="find.popup/-1366.74.1366.728/0.0.1920.1040@-1366.74.1366.728" timestamp="1594182093449" />
     <state x="610" y="0" width="823" height="1040" key="find.popup/-1366.74.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1593923238303" />
   </component>
 </project>

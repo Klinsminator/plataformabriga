@@ -17,43 +17,32 @@
                             <h3 class="margin-bottom-20">Usuarios</h3>
                             <table id="users" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Usuario</th>
-                                    <th>Tipo</th>
-                                    <th>Nombre</th>
-                                    <th>email</th>
-                                    <th>Ultimo registro</th>
-                                </tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Usuario</th>
+                                        <th>Tipo</th>
+                                        <th>Nombre</th>
+                                        <th>email</th>
+                                        <th>Ultimo registro</th>
+                                        <th>Accion</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>Accountant</td>
-                                    <td>Tokyo</td>
-                                    <td>63</td>
-                                    <td>2011/07/25</td>
-                                    <td>$170,750</td>
-                                </tr>
+                                    @foreach($users as $user)
+                                        <tr>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->username }}</td>
+                                            <td>{{ $user->user_type_id }}</td>
+                                            <td>{{ $user->names." ".$user->last_names }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->last_sign_in }}</td>
+                                            <td>
+                                                <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
+                                                <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -66,17 +55,20 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Tipo</th>
+                                    <th>Accion</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Intermediario</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Consultor</td>
-                                </tr>
+                                    @foreach($userTypes as $userType)
+                                        <tr>
+                                            <td>{{ $userType->id }}</td>
+                                            <td>{{ $userType->name }}</td>
+                                            <td>
+                                                <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
+                                                <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -96,7 +88,12 @@
                                         <input class="input100" type="text" name="lastNames" placeholder="Apellidos" value="{{ Request::old('lastNames') }}">
                                     </div>
                                     <div class="wrap-input100 {{ $errors->has('type') ? 'has-error' : '' }}">
-                                        <input class="input100" type="text" name="type" placeholder="Tipo" value="{{ Request::old('type') }}">
+                                        <select class="input100" name="type">
+                                            <option disabled selected value>Seleccione tipo</option>
+                                            @foreach($userTypes as $userType)
+                                                <option value={{ Request::old('type') ? Request::old('type') : $userType->id}}>{{ $userType->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="wrap-input100 {{ $errors->has('email') ? 'has-error' : '' }}">
                                         <input class="input100" type="email" name="email" placeholder="Correo electronico" value="{{ Request::old('email') }}">

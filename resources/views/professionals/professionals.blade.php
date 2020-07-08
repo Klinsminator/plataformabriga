@@ -23,7 +23,7 @@
                                             <th>ID</th>
                                             <th>Nombre</th>
                                             <th>Descripcion</th>
-                                            <th>Editar</th>
+                                            <th>Accion</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -34,6 +34,7 @@
                                                 <td>{{ $area->description }}</td>
                                                 <td>
                                                     <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
+                                                    <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -60,7 +61,7 @@
                                             <th>Correo Electronico</th>
                                             <th>Telefono</th>
                                             <th>Consultorio</th>
-                                            <th>Editar</th>
+                                            <th>Accion</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -76,6 +77,7 @@
                                                 <td>{{ $professional->office_id }}</td>
                                                 <td>
                                                     <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
+                                                    <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -100,7 +102,7 @@
                                             <th>Telefono primario</th>
                                             <th>Telefono secundario</th>
                                             <th>Email</th>
-                                            <th>Editar</th>
+                                            <th>Accion</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -114,6 +116,7 @@
                                                 <td>{{ $office->email }}</td>
                                                 <td>
                                                     <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
+                                                    <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
                                                 </td>
                                             </tr>
                                         @endforeach

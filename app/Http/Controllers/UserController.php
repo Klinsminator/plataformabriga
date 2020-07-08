@@ -2,8 +2,10 @@
 namespace  App\Http\Controllers;
 
 use App\User;
+use App\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -28,7 +30,9 @@ class UserController extends Controller
         $lastSignIn = "2020-01-01 10:10:10";
         $names = $request['names'];
         $lastNames = $request['lastNames'];
-        $type = $request['type'];
+        //$queryResult = DB::select('select * from user_types where id = :id',
+        //    ['id' => $request['type']]);
+        $type = UserType::find($request['type']);
         $email = $request['email'];
         $username = $request['username'];
         $password = bcrypt($request['password']);
@@ -37,13 +41,16 @@ class UserController extends Controller
         $user->last_sign_in = $lastSignIn;
         $user->names = $names;
         $user->last_names = $lastNames;
-        $user->type = $type;
         $user->email = $email;
         $user->username = $username;
         $user->password = $password;
 
         $message = "Error desconocido!";
-        if ($user->save())
+        // Regarding Eloquent relations (belongto) the father creates the new son
+        // this is why the retrieved usertype should call its sons method (users()) and save it,
+        // otherwise on a normal save, the object to save should call the save method
+        // $user->save()
+        if ($type->users()->save($user))
         {
             $message = "El usuario ha sido agregado exitosamente!";
         }
@@ -77,6 +84,9 @@ class UserController extends Controller
 
     public function getUsersView()
     {
-        return view('users/users');
+        $users = User::all();
+        $userTypes = UserType::all();
+        return view('users/users', ['users' => $users,
+            'userTypes' => $userTypes]);
     }
 }
