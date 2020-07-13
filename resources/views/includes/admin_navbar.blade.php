@@ -15,9 +15,7 @@
                     Recursos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('professionals') }}">Profesionales</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Áreas</a>
+                    <a class="dropdown-item" href="{{ route('professionals') }}"> Areas y Profesionales</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Síntomas</a>
                     <div class="dropdown-divider"></div>

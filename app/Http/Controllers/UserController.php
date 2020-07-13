@@ -21,7 +21,7 @@ class UserController extends Controller
                 'type' => 'required',
                 'email' => 'email|unique:users|required',
                 'username' => 'max:10|required',
-                'password' => '|required'
+                'password' => 'required'
             ]);
         /*} catch (ValidationException $e) {
             return \response($e->errors(),400);
@@ -55,6 +55,79 @@ class UserController extends Controller
             $message = "El usuario ha sido agregado exitosamente!";
         }
 
+        return redirect()->route('users')->with(['message' => $message]);
+    }
+
+    public function postUpdateUser(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'names' => 'max:120',
+            'lastNames' => 'max:120',
+            'email' => 'email',
+        ]);
+
+        $id = $request['id'];
+        $names = $request['names'];
+        $lastNames = $request['lastNames'];
+        $type = UserType::find($request['type']);
+        $email = $request['email'];
+        $password = $request['password'] ? bcrypt($request['password']) : null;
+
+        $user = User::where('id', $id)->first();
+        if ($names && $names != $user->names)
+            $user->names = $names;
+        if ($lastNames && $lastNames != $user->last_names)
+            $user->last_names = $lastNames;
+        if ($email && $email != $user->email)
+            $user->email = $email;
+        if ($password)
+            $user->password = bcrypt($request['password']);
+
+        // This validates if the column has changed
+        //$var1 = $user->isDirty('names'); // true
+
+        $message = "Error desconocido!";
+
+        // Need to validate if the realtionship is modified first
+        // So on one side, update as usual the user, on the other
+        // use Eloquent to change the relationship between models/tables
+        if ($type->id === $user->userType->id)
+        {
+            if ($user->update())
+            {
+                $message = "El usuario ha sido actualizado exitosamente!";
+                return response()->json(['message' => $message, 'newNames' => $user->names,
+                    'newLastNames' => $user->last_names, 'newUserTypeId' => $type->id,
+                    'newUserType' => $type->name, 'newEmail' => $user->email], 200);
+            }
+        }
+        else{
+            // This is for a belongsTo case in which the belonged modifies to whom belongs
+            $user->userType()->associate($type);
+            if ($user->save())
+            {
+                $message = "El usuario ha sido actualizado exitosamente!";
+                return response()->json(['message' => $message, 'newNames' => $user->names,
+                    'newLastNames' => $user->last_names, 'newUserTypeId' => $type->id,
+                    'newUserType' => $type->name, 'newEmail' => $user->email], 200);
+            }
+        }
+
+        return response()->json(['message' => $message], 500);
+
+    }
+
+    public function getDeleteUser($userId)
+    {
+        $user = User::where('id', $userId)->first();
+
+        $message = "Error desconocido!";
+
+        if ($user->delete())
+        {
+            $message = "El usuario ha sido eliminado exitosamente!";
+        }
         return redirect()->route('users')->with(['message' => $message]);
     }
 

@@ -24,4 +24,45 @@ class UserTypeController extends Controller
         }
         return redirect()->route('users')->with(['message' => $message]);
     }
+
+    public function postUpdateUserType(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'name' => 'max:120|required'
+        ]);
+
+        $id = $request['id'];
+        $name = $request['name'];
+
+        $userType = UserType::where('id', $id)->first();
+        $userType->name = $name;
+
+        $message = "Error desconocido!";
+        if ($userType->update())
+        {
+            $message = "El tipo de usuario ha sido actualizado exitosamente!";
+            return response()->json(['message' => $message, 'newName' => $userType->name], 200);
+        }
+
+        return response()->json(['message' => $message], 500);
+
+    }
+
+    public function getDeleteUserType($userTypeId)
+    {
+        // This is translated to a where function
+        //$userType = UserType::find($userTypeId)->first();
+
+        // SQL query version
+        $userType = UserType::where('id', $userTypeId)->first();
+
+        $message = "Error desconocido!";
+
+        if ($userType->delete())
+        {
+            $message = "El tipo de usuario ha sido eliminado exitosamente!";
+        }
+        return redirect()->route('users')->with(['message' => $message]);
+    }
 }

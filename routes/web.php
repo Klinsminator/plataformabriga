@@ -36,9 +36,34 @@ Route::post('/signin', [
     'as' => 'signin'
 ]);
 
+Route::post('/postUpdateUser', [
+    'uses' => 'UserController@postUpdateUser',
+    'as' => 'postUpdateUser',
+    'middleware' => 'auth'
+]);
+
+Route::get('/getDeleteUser/{userId}', [
+    'uses' => 'UserController@getDeleteUser',
+    'as' => 'getDeleteUser',
+    'middleware' => 'auth'
+]);
+
 Route::post('/postCreateUserType', [
-    'uses' => 'UserTypeController@createUserType',
-    'as' => 'createUserType'
+    'uses' => 'UserTypeController@postCreateUserType',
+    'as' => 'createUserType',
+    'middleware' => 'auth'
+]);
+
+Route::post('/postUpdateUserType', [
+    'uses' => 'UserTypeController@postUpdateUserType',
+    'as' => 'postUpdateUserType',
+    'middleware' => 'auth'
+]);
+
+Route::get('/getDeleteUserType/{userTypeId}', [
+    'uses' => 'UserTypeController@getDeleteUserType',
+    'as' => 'getDeleteUserType',
+    'middleware' => 'auth'
 ]);
 
 Route::get('/users', [
@@ -49,27 +74,32 @@ Route::get('/users', [
 /*---------- PROFESSIONALS ----------*/
 Route::post('/postCreateRecommendationArea', [
     'uses' => 'RecommendationAreaController@postCreateRecommendationArea',
-    'as' => 'createRecommendationArea'
+    'as' => 'createRecommendationArea',
+    'middleware' => 'auth'
 ]);
 
 Route::post('/postCreateProfessional', [
     'uses' => 'ProfessionalController@postCreateProfessional',
-    'as' => 'createProfessional'
+    'as' => 'createProfessional',
+    'middleware' => 'auth'
 ]);
 
 Route::post('/postCreateOffice', [
     'uses' => 'OfficeController@postCreateOffice',
-    'as' => 'createOffice'
+    'as' => 'createOffice',
+    'middleware' => 'auth'
 ]);
 
 Route::post('/postAssignAreaToProfessional', [
     'uses' => 'ProfessionalController@postAssignAreaToProfessional',
-    'as' => 'assignAreaToProfessional'
+    'as' => 'assignAreaToProfessional',
+    'middleware' => 'auth'
 ]);
 
 Route::post('/postAssignOfficeToProfessional', [
     'uses' => 'ProfessionalController@postAssignOfficeToProfessional',
-    'as' => 'assignOfficeToProfessional'
+    'as' => 'assignOfficeToProfessional',
+    'middleware' => 'auth'
 ]);
 
 Route::get('/professionals', [

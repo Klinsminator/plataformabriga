@@ -12,6 +12,7 @@
             <div class="container-login100-greyish">
                 <div class="wrap-home100">
                     @include('includes.admin_navbar')
+                    @include('includes.message_block')
                     <div class="row">
                         <div class="col-12">
                             <h3 class="margin-bottom-20">Areas</h3>
@@ -127,7 +128,6 @@
                         </div>
                     </div>
                     <hr class="dotted">
-                    @include('includes.message_block')
                     <div class="row">
                         <div class="col-4">
                             <h3 class="text-center margin-bottom-20">Crea un area</h3>
