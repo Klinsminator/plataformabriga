@@ -51,18 +51,18 @@ class UserTypeController extends Controller
 
     public function getDeleteUserType($userTypeId)
     {
-        // This is translated to a where function
-        //$userType = UserType::find($userTypeId)->first();
-
-        // SQL query version
-        $userType = UserType::where('id', $userTypeId)->first();
-
         $message = "Error desconocido!";
 
-        if ($userType->delete())
+        // This if validates if the requested usertype related users on DB
+        if (!UserType::has('users')->find($userTypeId))
         {
-            $message = "El tipo de usuario ha sido eliminado exitosamente!";
+            if (UserType::destroy($userTypeId))
+            {
+                $message = "El tipo de usuario ha sido eliminado exitosamente!";
+            }
+            return redirect()->route('users')->with(['message' => $message]);
         }
+        $message = "El tipo de usuario aun esta ligado a uno o mas usuarios!";
         return redirect()->route('users')->with(['message' => $message]);
     }
 }
