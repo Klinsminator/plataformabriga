@@ -60,9 +60,11 @@ class UserTypeController extends Controller
             {
                 $message = "El tipo de usuario ha sido eliminado exitosamente!";
             }
-            return redirect()->route('users')->with(['message' => $message]);
         }
-        $message = "El tipo de usuario aun esta ligado a uno o mas usuarios!";
+        else {
+            $message = "El tipo de usuario aun esta ligado a uno o mas usuarios!";
+        }
+
         return redirect()->route('users')->with(['message' => $message]);
     }
 }

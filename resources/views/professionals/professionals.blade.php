@@ -15,7 +15,7 @@
                     @include('includes.message_block')
                     <div class="row">
                         <div class="col-12">
-                            <h3 class="margin-bottom-20">Areas</h3>
+                            <h3 class="margin-bottom-20">Areas de Recomendacion</h3>
                             <div>
                                 <!-- AREAS TABLE -->
                                 <table id="areas" class="table table-striped table-bordered" style="width:100%">
@@ -29,13 +29,17 @@
                                     </thead>
                                     <tbody>
                                         @foreach($recommendationAreas as $area)
-                                            <tr>
+                                            <tr id="prueba" class="professionalsTableRecommendationArea">
                                                 <td>{{ $area->id }}</td>
                                                 <td>{{ $area->name }}</td>
                                                 <td>{{ $area->description }}</td>
-                                                <td>
-                                                    <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
-                                                    <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                                <td class="professionalsTableRecommendationAreaTd">
+                                                    <a class="edit" href="#">
+                                                        <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
+                                                    </a>
+                                                    <a onclick="return confirm('Seguro que desea continuar?')" href="{{ route('getDeleteRecommendationArea', ['recommendationAreaId' => $area->id]) }}">
+                                                        <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -56,7 +60,8 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>T.</th>
-                                            <th>Nombre</th>
+                                            <th>Nombres</th>
+                                            <th>Apellidos</th>
                                             <th>Area</th>
                                             <th>Profesion</th>
                                             <th>Correo Electronico</th>
@@ -70,12 +75,17 @@
                                             <tr>
                                                 <td>{{ $professional->id }}</td>
                                                 <td>{{ $professional->title }}</td>
-                                                <td>{{ $professional->names." ".$professional->last_names }}</td>
-                                                <td>{{ $professional->recommendation_area_id }}</td>
+                                                <td>{{ $professional->names }}</td>
+                                                <td>{{ $professional->last_names }}</td>
+                                                @foreach($professional->recommendationArea as $area)
+                                                    <td id="{{ $area->id }}">{{ $area->name }}</td>
+                                                @endforeach
                                                 <td>{{ $professional->profession }}</td>
                                                 <td>{{ $professional->email }}</td>
                                                 <td>{{ $professional->phone }}</td>
-                                                <td>{{ $professional->office_id }}</td>
+                                                @foreach($professional->office as $office)
+                                                    <td id="{{ $office->id }}">{{ $office->name }}</td>
+                                                @endforeach
                                                 <td>
                                                     <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
                                                     <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
@@ -108,16 +118,20 @@
                                     </thead>
                                     <tbody>
                                         @foreach($offices as $office)
-                                            <tr>
+                                            <tr id="prueba" class="professionalsTableOffice">
                                                 <td>{{ $office->id }}</td>
                                                 <td>{{ $office->name }}</td>
                                                 <td>{{ $office->address }}</td>
                                                 <td>{{ $office->phone_primary }}</td>
                                                 <td>{{ $office->phone_secondary }}</td>
                                                 <td>{{ $office->email }}</td>
-                                                <td>
-                                                    <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
-                                                    <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                                <td class="professionalsTableOfficeTd">
+                                                    <a class="edit" href="#">
+                                                        <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
+                                                    </a>
+                                                    <a onclick="return confirm('Seguro que desea continuar?')" href="{{ route('getDeleteOffice', ['officeId' => $office->id]) }}">
+                                                        <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -133,7 +147,7 @@
                             <h3 class="text-center margin-bottom-20">Crea un area</h3>
                             <div>
                                 <!-- CREATRECOMMENDATIONEAREA FORM -->
-                                <form id="createRecommendationAreaForm" class="login100-form validate-form center_div" action="{{ route('createRecommendationArea') }}" method="post">
+                                <form id="createRecommendationAreaForm" class="confirm login100-form validate-form center_div" action="{{ route('createRecommendationArea') }}" method="post">
                                     <div class="wrap-input100 {{ $errors->has('name') ? 'has-error' : '' }}">
                                         <input class="input100" type="text" name="name" placeholder="Nombre" value="{{ Request::old('name') }}">
                                     </div>
@@ -154,7 +168,7 @@
                             <h3 class="text-center margin-bottom-20">Crea un profesional</h3>
                             <div>
                                 <!-- CREATEPROFESSIONAL FORM -->
-                                <form id="createProfessionalForm" class="login100-form validate-form center_div" action="{{ route('createProfessional') }}" method="post">
+                                <form id="createProfessionalForm" class="confirm login100-form validate-form center_div" action="{{ route('createProfessional') }}" method="post">
                                     <div class="wrap-input100 {{ $errors->has('names') ? 'has-error' : '' }}">
                                         <input class="input100" type="text" name="names" placeholder="Nombres" value="{{ Request::old('names') }}">
                                     </div>
@@ -203,7 +217,7 @@
                             <h3 class="text-center margin-bottom-20">Crea un consultorio</h3>
                             <div>
                                 <!-- CREATEOFFICE FORM -->
-                                <form id="createOfficeForm" class="login100-form validate-form center_div" action="{{ route('createOffice') }}" method="post">
+                                <form id="createOfficeForm" class="confirm login100-form validate-form center_div" action="{{ route('createOffice') }}" method="post">
                                     <div class="wrap-input100 {{ $errors->has('name') ? 'has-error' : '' }}">
                                         <input class="input100" type="text" name="name" placeholder="Nombre" value="{{ Request::old('name') }}">
                                     </div>
@@ -298,6 +312,91 @@
                 </div>
             </div>
         </div>
+        <!-- MODAL AREA -->
+        <div class="modal fade" id="professionalsModalEditRecommendationArea" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- MODAL HEADER WITH TITLE AND CLOSE BUTTON -->
+                    <div class="modal-header">
+                        <h3 class="modal-title">Editar area de recomendacion</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- MODAL BODY -->
+                    <div class="modal-body">
+                        <div>
+                            <!-- MODAL AREA FORM -->
+                            <form id="professionalsModalRecommendationAreaForm" class="login100-form validate-form center_div">
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalRecommendationAreaFormName" class="input100" type="text" name="name">
+                                </div>
+                                <div class="wrap-input100">
+                                    <textarea id="professionalsModalRecommendationAreaFormDescription" class="input100" type="text" name="description"></textarea>
+                                </div>
+                            </form>
+                            <!-- MODAL AREA FORM -->
+                        </div>
+                    </div>
+                    <!-- MODAL FOOTER -->
+                    <div class="modal-footer">
+                        <div class="login100-form validate-form center_div">
+                            <div class="container-login100-form-btn">
+                                <button id="professionalsModalRecommendationAreaFormIdSubmit" type="button" class="login100-form-btn">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL USER -->
+        <!-- MODAL OFFICE -->
+        <div class="modal fade" id="professionalsModalEditOffice" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- MODAL HEADER WITH TITLE AND CLOSE BUTTON -->
+                    <div class="modal-header">
+                        <h3 class="modal-title">Editar tipo de usuario</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- MODAL BODY -->
+                    <div class="modal-body">
+                        <div>
+                            <!-- TYPE FORM -->
+                            <form id="professionalsModalOfficeForm" class="login100-form validate-form center_div">
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalOfficeFormName" class="input100" type="text" name="name">
+                                </div>
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalOfficeFormPhonePrimary" class="input100" type="number" name="phonePrimary">
+                                </div>
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalOfficeFormPhoneSecondary" class="input100" type="number" name="phoneSecondary">
+                                </div>
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalOfficeFormEmail" class="input100" type="email" name="email">
+                                </div>
+                                <div class="wrap-input100">
+                                    <textarea id="professionalsModalOfficeFormAddress" class="input100" type="text" name="address"></textarea>
+                                </div>
+                            </form>
+                            <!-- TYPE FORM -->
+                        </div>
+                    </div>
+                    <!-- MODAL FOOTER -->
+                    <div class="modal-footer ">
+                        <div class="login100-form validate-form center_div">
+                            <div class="container-login100-form-btn">
+                                <button id="professionalsModalOfficeFormIdSubmit" type="button" class="login100-form-btn">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL OFFICE -->
         @include('scripts.script_Login_v1')
         @include('scripts.datatables')
         <script>
@@ -317,6 +416,13 @@
                 $('#offices').DataTable();
             } );
         </script>
-
+        <!-- ROUTE -->
+        <script>
+            var token = '{{ Session::token() }}';
+            var urlRecommendationArea = '{{ route('postUpdateRecommendationArea') }}';
+            var urlOffice = '{{ route('postUpdateOffice') }}';
+        </script>
+        <!-- ROUTE -->
+        @include('scripts.confirm_message_block')
     </body>
 </html>

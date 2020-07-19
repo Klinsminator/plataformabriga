@@ -5,6 +5,11 @@ var editUserType = null;
 var editNames = null;
 var editLastNames = null;
 var editEmail = null;
+var editDescription = null;
+var editPhonePrimary = null;
+var editPhoneSecondary = null;
+var editEmail = null;
+var editAddress = null;
 
 /*------------------------------------- USER -------------------------------------*/
 $('.usersTableUser').find('.usersTableUserTd').find('.edit').on('click', function(event) {
@@ -54,7 +59,6 @@ $('#usersModalUserFormIdSubmit').on('click', function() {
             $(editUserType).text(msg['newUserType']);
             $(editEmail).text(msg['newEmail']);
             alert(msg['message']);
-            $(".modal-body1").html("");
             $('#usersModalEditUser').modal('hide');
         }
     });
@@ -96,3 +100,102 @@ $('#usersModalTypeFormIdSubmit').on('click', function() {
     });
 });
 /*------------------------------------- USERTYPE -------------------------------------*/
+
+/*------------------------------------- AREA -------------------------------------*/
+$('.professionalsTableRecommendationArea').find('.professionalsTableRecommendationAreaTd')
+    .find('.edit').on('click', function(event) {
+    // This prevents any other behavior
+    event.preventDefault();
+
+    editId = event.target.parentNode.parentNode.parentNode.childNodes[1].textContent;
+    editName = event.target.parentNode.parentNode.parentNode.childNodes[3];
+    editDescription = event.target.parentNode.parentNode.parentNode.childNodes[5];
+    var name = editName.textContent;
+    var description = editDescription.textContent;
+
+    $('#professionalsModalRecommendationAreaFormName').val(name);
+    $('#professionalsModalRecommendationAreaFormDescription').val(description);
+    $('#professionalsModalEditRecommendationArea').modal();
+});
+
+$('#professionalsModalRecommendationAreaFormIdSubmit').on('click', function() {
+    $.ajax({
+        method: 'POST',
+        url: urlRecommendationArea,
+        data: {
+            id: editId,
+            name: $('#professionalsModalRecommendationAreaFormName').val(),
+            description: $('#professionalsModalRecommendationAreaFormDescription').val(),
+            _token: token
+        }
+    }).done(function (msg, status) {
+        if(status !== "success") {
+            alert(msg['message']);
+        }
+        else
+        {
+            $(editName).text(msg['newName']);
+            $(editDescription).text(msg['newDescription']);
+            alert(msg['message']);
+            $('#professionalsModalEditRecommendationArea').modal('hide');
+        }
+    });
+});
+/*------------------------------------- AREA -------------------------------------*/
+
+/*------------------------------------- OFFICE -------------------------------------*/
+$('.professionalsTableOffice').find('.professionalsTableOfficeTd')
+    .find('.edit').on('click', function(event) {
+    // This prevents any other behavior
+    event.preventDefault();
+
+    editId = event.target.parentNode.parentNode.parentNode.childNodes[1].textContent;
+    editName = event.target.parentNode.parentNode.parentNode.childNodes[3];
+    editPhonePrimary = event.target.parentNode.parentNode.parentNode.childNodes[7];
+    editPhoneSecondary = event.target.parentNode.parentNode.parentNode.childNodes[9];
+    editEmail = event.target.parentNode.parentNode.parentNode.childNodes[11];
+    editAddress = event.target.parentNode.parentNode.parentNode.childNodes[5];
+    var name = editName.textContent;
+    var PhonePrimary = editPhonePrimary.textContent;
+    var PhoneSecondary = editPhoneSecondary.textContent;
+    var Email = editEmail.textContent;
+    var Address = editAddress.textContent;
+
+    $('#professionalsModalOfficeFormName').val(name);
+    $('#professionalsModalOfficeFormPhonePrimary').val(PhonePrimary);
+    $('#professionalsModalOfficeFormPhoneSecondary').val(PhoneSecondary);
+    $('#professionalsModalOfficeFormEmail').val(Email);
+    $('#professionalsModalOfficeFormAddress').val(Address);
+    $('#professionalsModalEditOffice').modal();
+});
+
+$('#professionalsModalOfficeFormIdSubmit').on('click', function() {
+    $.ajax({
+        method: 'POST',
+        url: urlRecommendationArea,
+        data: {
+            id: editId,
+            name: $('#professionalsModalOfficeFormName').val(),
+            PhonePrimary: $('#professionalsModalOfficeFormPhonePrimary').val(),
+            PhoneSecondary: $('#professionalsModalOfficeFormPhoneSecondary').val(),
+            Email: $('#professionalsModalOfficeFormEmail').val(),
+            Address: $('#professionalsModalOfficeFormAddress').val(),
+            _token: token
+        }
+    }).done(function (msg, status) {
+        if(status !== "success") {
+            alert(msg['message']);
+        }
+        else
+        {
+            $(editName).text(msg['newName']);
+            $(editPhonePrimary).text(msg['newPhonePrimary']);
+            $(editPhoneSecondary).text(msg['newPhoneSecondary']);
+            $(editEmail).text(msg['newEmail']);
+            $(editAddress).text(msg['newAddress']);
+            alert(msg['message']);
+            $('#professionalsModalEditOffice').modal('hide');
+        }
+    });
+});
+/*------------------------------------- OFFICE -------------------------------------*/

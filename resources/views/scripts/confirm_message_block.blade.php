@@ -1,5 +1,5 @@
 <script>
-    $("#usersTypeForm").on("submit", function(){
-        return confirm("Seguro que quiere continuar?");
+    $(".confirm").on("submit", function(){
+        return confirm("Seguro que desea continuar?");
     });
 </script>

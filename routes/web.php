@@ -78,6 +78,18 @@ Route::post('/postCreateRecommendationArea', [
     'middleware' => 'auth'
 ]);
 
+Route::post('/postUpdateRecommendationArea', [
+    'uses' => 'RecommendationAreaController@postUpdateRecommendationArea',
+    'as' => 'postUpdateRecommendationArea',
+    'middleware' => 'auth'
+]);
+
+Route::get('/getDeleteRecommendationArea/{recommendationAreaId}', [
+    'uses' => 'RecommendationAreaController@getDeleteRecommendationArea',
+    'as' => 'getDeleteRecommendationArea',
+    'middleware' => 'auth'
+]);
+
 Route::post('/postCreateProfessional', [
     'uses' => 'ProfessionalController@postCreateProfessional',
     'as' => 'createProfessional',
@@ -87,6 +99,18 @@ Route::post('/postCreateProfessional', [
 Route::post('/postCreateOffice', [
     'uses' => 'OfficeController@postCreateOffice',
     'as' => 'createOffice',
+    'middleware' => 'auth'
+]);
+
+Route::post('/postUpdateOffice', [
+    'uses' => 'OfficeController@postUpdateOffice',
+    'as' => 'postUpdateOffice',
+    'middleware' => 'auth'
+]);
+
+Route::get('/getDeleteOffice/{officeId}', [
+    'uses' => 'OfficeController@getDeleteOffice',
+    'as' => 'getDeleteOffice',
     'middleware' => 'auth'
 ]);
 

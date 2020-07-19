@@ -19,9 +19,9 @@ class ProfessionalController extends Controller
             'title' => 'max:120|required',
             'profession' => 'max:120|required',
             'email' => 'email|unique:professionals|unique:users|required',
-            'phone' => 'min:8|max:12|required',
-            'recommendationAreaId' => 'numeric',
-            'officeId' => 'numeric'
+            'phone' => 'min:8|max:15|required',
+            'recommendationAreaId' => 'required',
+            'officeId' => 'required'
         ]);
 
         $names = $request['names'];
@@ -30,29 +30,40 @@ class ProfessionalController extends Controller
         $profession = $request['profession'];
         $personalEmail = $request['email'];
         $personalPhone = $request['phone'];
-        $RecommendationAreaId = $request['recommendationAreaId'];
-        $officeId = $request['officeId'];
+        $recommendationArea = RecommendationArea::find($request['recommendationAreaId']);
+        $office = Office::find($request['officeId']);
 
-        $user = new Professional();
-        $user->names = $names;
-        $user->last_names = $lastNames;
-        $user->title = $title;
-        $user->profession = $profession;
-        $user->email = $personalEmail;
-        $user->phone = $personalPhone;
-        if($RecommendationAreaId == null || $RecommendationAreaId == 0)
-            $user->recommendation_area_id = 0;
-        else
-            $user->recommendation_area_id = $RecommendationAreaId;
-        if($officeId == null || $officeId == 0)
-            $user->office_id = 0;
-        else
-            $user->office_id = $officeId;
+        $professional = new Professional();
+        $professional->names = $names;
+        $professional->last_names = $lastNames;
+        $professional->title = $title;
+        $professional->profession = $profession;
+        $professional->email = $personalEmail;
+        $professional->phone = $personalPhone;
 
         $message = "Error desconocido!";
-        if ($user->save())
+        if($office && $recommendationArea)
         {
-            $message = "El Profesional ha sido agregado exitosamente!";
+            if ($professional->save())
+            {
+                // All this flow is for the manytomany relationship
+                $professional->office()->attach($office);
+                $professional->recommendationArea()->attach($recommendationArea);
+
+                $message = "El Profesional ha sido agregado exitosamente!";
+                if($professional->recommendationArea()->where('professional_id', $professional) &&
+                    $professional->office()->where('proffesional_id', $professional))
+                {
+                    $message .= " El area de recomendacion y la oficina se agregaron exitosamente!";
+                }
+                else {
+                    $message .= " ERROR: El area de recomendacion y/o la oficina no ha
+                    podido ser agregado por un error desconocido!";
+                }
+            }
+        }
+        else {
+            $message = "La oficina o el area de recomendacion no se ha encontrado!";
         }
 
         return redirect()->route('professionals')->with(['message' => $message]);
@@ -69,12 +80,24 @@ class ProfessionalController extends Controller
         $professionalID = $request['professionalID'];
 
         $professional = Professional::find($professionalID);
-        $professional->recommendation_area_id = $areaId;
 
         $message = "Error desconocido!";
-        if ($professional->update())
+        $full = 0;
+        foreach ($professional->recommendationArea as $area)
         {
-            $message = "El Profesional ha sido actualizado exitosamente!";
+            $full ++;
+        }
+
+        if($full>0)
+        {
+            $message = "Error, el profesional ya se encuentra ligado a un area de recomendacion!";
+        }
+        else {
+            $professional->recommendationArea()->attach($areaId);
+            if ($professional->recommendationArea()->where('professional_id', $professional))
+            {
+                $message = "El Profesional ha sido actualizado exitosamente!";
+            }
         }
 
         return redirect()->route('professionals')->with(['message' => $message]);
@@ -91,12 +114,24 @@ class ProfessionalController extends Controller
         $professionalID = $request['professionalID'];
 
         $professional = Professional::find($professionalID);
-        $professional->office_id = $officeId;
 
         $message = "Error desconocido!";
-        if ($professional->update())
+        $full = 0;
+        foreach ($professional->office as $office)
         {
-            $message = "El Profesional ha sido actualizado exitosamente!";
+            $full ++;
+        }
+
+        if($full>0)
+        {
+            $message = "Error, el profesional ya se encuentra ligado a una oficina!";
+        }
+        else {
+            $professional->office()->attach($officeId);
+            if ($professional->office()->where('professional_id', $professional))
+            {
+                $message = "El Profesional ha sido actualizado exitosamente!";
+            }
         }
 
         return redirect()->route('professionals')->with(['message' => $message]);
@@ -105,8 +140,9 @@ class ProfessionalController extends Controller
     public function getProfessionalsView()
     {
         $recommendationAreas = RecommendationArea::all();
-        $professionals = Professional::all();
+        $professionals = Professional::all()->load(['recommendationArea', 'office']);
         $offices = Office::all();
+        //Log::debug('Some message.');
         return view('professionals/professionals', ['recommendationAreas' => $recommendationAreas,
             'professionals' => $professionals, 'offices' => $offices]);
     }

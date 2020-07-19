@@ -22,8 +22,6 @@ class CreateProfessionalsTable extends Migration
             $table->string('profession');
             $table->string('email');
             $table->string('phone');
-            $table->bigInteger('recommendation_area_id');
-            $table->bigInteger('office_id');
         });
     }
 
