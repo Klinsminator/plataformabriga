@@ -72,7 +72,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach($professionals as $professional)
-                                            <tr>
+                                            <tr id="prueba" class="professionalsTableProfessionals">
                                                 <td>{{ $professional->id }}</td>
                                                 <td>{{ $professional->title }}</td>
                                                 <td>{{ $professional->names }}</td>
@@ -86,9 +86,13 @@
                                                 @foreach($professional->office as $office)
                                                     <td id="{{ $office->id }}">{{ $office->name }}</td>
                                                 @endforeach
-                                                <td>
-                                                    <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
-                                                    <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                                <td class="professionalsTableProfessionalTd">
+                                                    <a class="edit" href="#">
+                                                        <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
+                                                    </a>
+                                                    <a onclick="return confirm('Seguro que desea continuar?')" href="{{ route('getDeleteProfessional', ['professionalId' => $professional->id]) }}">
+                                                        <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -349,14 +353,80 @@
                 </div>
             </div>
         </div>
-        <!-- MODAL USER -->
+        <!-- MODAL AREA -->
+        <!-- MODAL PROFESSIONAL -->
+        <div class="modal fade" id="professionalsModalEditProfessional" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- MODAL HEADER WITH TITLE AND CLOSE BUTTON -->
+                    <div class="modal-header">
+                        <h3 class="modal-title">Editar profesional</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- MODAL BODY -->
+                    <div class="modal-body">
+                        <div>
+                            <!-- TYPE FORM -->
+                            <form id="professionalsModalProfessionalForm" class="login100-form validate-form center_div">
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalProfessionalFormNames" class="input100" type="text" name="name">
+                                </div>
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalProfessionalFormLastNames" class="input100" type="text" name="phonePrimary">
+                                </div>
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalProfessionalFormTitle" class="input100" type="text" name="phoneSecondary">
+                                </div>
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalProfessionalFormProfession" class="input100" type="text" name="phoneSecondary">
+                                </div>
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalProfessionalFormEmail" class="input100" type="email" name="email">
+                                </div>
+                                <div class="wrap-input100">
+                                    <input id="professionalsModalProfessionalFormPhone" class="input100" type="number" name="phoneSecondary">
+                                </div>
+                                <div class="wrap-input100">
+                                    <select id="professionalsModalProfessionalFormRecommendationArea" class="input100" name="type">
+                                        <option disabled selected value>Seleccione area</option>
+                                        @foreach($recommendationAreas as $area)
+                                            <option value={{ $area->id }}>{{ $area->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="wrap-input100">
+                                    <select id="professionalsModalProfessionalFormOffice" class="input100" name="type">
+                                        <option disabled selected value>Seleccione consultorio</option>
+                                        @foreach($offices as $office)
+                                            <option value={{ $office->id }}>{{ $office->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </form>
+                            <!-- TYPE FORM -->
+                        </div>
+                    </div>
+                    <!-- MODAL FOOTER -->
+                    <div class="modal-footer ">
+                        <div class="login100-form validate-form center_div">
+                            <div class="container-login100-form-btn">
+                                <button id="professionalsModalProfessionalFormIdSubmit" type="button" class="login100-form-btn">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL PROFESSIONAL -->
         <!-- MODAL OFFICE -->
         <div class="modal fade" id="professionalsModalEditOffice" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- MODAL HEADER WITH TITLE AND CLOSE BUTTON -->
                     <div class="modal-header">
-                        <h3 class="modal-title">Editar tipo de usuario</h3>
+                        <h3 class="modal-title">Editar consultorio</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -399,6 +469,7 @@
         <!-- MODAL OFFICE -->
         @include('scripts.script_Login_v1')
         @include('scripts.datatables')
+        <script src="{{asset ('js/appProfessionalsView.js')}}"></script>
         <script>
             $(document).ready(function() {
                 $('#areas').DataTable();
@@ -420,6 +491,7 @@
         <script>
             var token = '{{ Session::token() }}';
             var urlRecommendationArea = '{{ route('postUpdateRecommendationArea') }}';
+            var urlProfessional = '{{ route('postUpdateProfessional') }}';
             var urlOffice = '{{ route('postUpdateOffice') }}';
         </script>
         <!-- ROUTE -->

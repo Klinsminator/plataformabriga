@@ -39,10 +39,16 @@ class UserTypeController extends Controller
         $userType->name = $name;
 
         $message = "Error desconocido!";
-        if ($userType->update())
+        if($userType->isDirty())
         {
-            $message = "El tipo de usuario ha sido actualizado exitosamente!";
-            return response()->json(['message' => $message, 'newName' => $userType->name], 200);
+            if ($userType->update())
+            {
+                $message = "El tipo de usuario ha sido actualizado exitosamente!";
+                return response()->json(['message' => $message, 'newName' => $userType->name], 200);
+            }
+        }
+        else {
+            $message = "No hay cambios en los datos! Revise que en efecto este cambiando algun dato.";
         }
 
         return response()->json(['message' => $message], 500);

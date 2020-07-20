@@ -70,14 +70,20 @@ class OfficeController extends Controller
             $office->address = $address;
 
         $message = "Error desconocido!";
-        if ($office->update())
+        if($office->isDirty())
         {
-            $message = "El Consultorio ha sido actualizado exitosamente!";
-            return response()->json(['message' => $message, 'newName' => $office->name,
-                'newPhonePrimary' => $office->phone_primary,
-                'newPhoneSecondary' => $office->phone_secondary,
-                'newEmail' => $office->email,
-                'newAddress' => $office->address], 200);
+            if ($office->update())
+            {
+                $message = "El Consultorio ha sido actualizado exitosamente!";
+                return response()->json(['message' => $message, 'newName' => $office->name,
+                    'newPhonePrimary' => $office->phone_primary,
+                    'newPhoneSecondary' => $office->phone_secondary,
+                    'newEmail' => $office->email,
+                    'newAddress' => $office->address], 200);
+            }
+        }
+        else {
+            $message = "No hay cambios en los datos! Revise que en efecto este cambiando algun dato.";
         }
 
         return response()->json(['message' => $message], 500);
@@ -86,18 +92,25 @@ class OfficeController extends Controller
 
     public function getDeleteOffice($officeId)
     {
-        $message = "Error desconocido!";
+        $office = Office::find($officeId);
 
-        // This if validates if the requested usertype related users on DB
-        if (!Office::has('professionals')->find($officeId))
+        $message = "Error desconocido!";
+        $full = 0;
+        foreach ($office->professional as $ofi)
         {
-            if (Office::destroy($officeId))
-            {
-                $message = "El Consultorio ha sido eliminado exitosamente!";
-            }
+            $full ++;
+        }
+
+        if($full>0)
+        {
+            $message = "Error, el consultorio aun se encuentra ligado a uno o mas profesionales!";
         }
         else {
-            $message = "El Consultorio aun esta ligado a uno o mas profesionales!";
+            $office->professional()->detach();
+            if ($office->delete())
+            {
+                $message = "El consultorio ha sido eliminado exitosamente!";
+            }
         }
 
         return redirect()->route('professionals')->with(['message' => $message]);

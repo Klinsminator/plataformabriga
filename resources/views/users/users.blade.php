@@ -235,6 +235,7 @@
         <!-- MODAL USER TYPE -->
         @include('scripts.script_Login_v1')
         @include('scripts.datatables')
+        <script src="{{asset ('js/appUsersView.js')}}"></script>
         <script>
             $(document).ready(function() {
                 $('#users').DataTable();

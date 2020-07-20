@@ -50,11 +50,17 @@ class RecommendationAreaController extends Controller
             $recommendationArea->description = $description;
 
         $message = "Error desconocido!";
-        if ($recommendationArea->update())
+        if($recommendationArea->isDirty())
         {
-            $message = "El area de recomendacion ha sido actualizada exitosamente!";
-            return response()->json(['message' => $message, 'newName' => $recommendationArea->name,
-                'newDescription' => $recommendationArea->description], 200);
+            if ($recommendationArea->update())
+            {
+                $message = "El area de recomendacion ha sido actualizada exitosamente!";
+                return response()->json(['message' => $message, 'newName' => $recommendationArea->name,
+                    'newDescription' => $recommendationArea->description], 200);
+            }
+        }
+        else {
+            $message = "No hay cambios en los datos! Revise que en efecto este cambiando algun dato.";
         }
 
         return response()->json(['message' => $message], 500);
@@ -63,18 +69,25 @@ class RecommendationAreaController extends Controller
 
     public function getDeleteRecommendationArea($recommendationAreaId)
     {
-        $message = "Error desconocido!";
+        $recommendationArea = RecommendationArea::find($recommendationAreaId);
 
-        // This if validates if the requested usertype related users on DB
-        if (!RecommendationArea::has('professionals')->find($recommendationAreaId))
+        $message = "Error desconocido!";
+        $full = 0;
+        foreach ($recommendationArea->professional as $area)
         {
-            if (RecommendationArea::destroy($recommendationAreaId))
-            {
-                $message = "El area de recomendacion ha sido eliminada exitosamente!";
-            }
+            $full ++;
+        }
+
+        if($full>0)
+        {
+            $message = "Error, el area de recomendacion aun se encuentra ligado a uno o mas profesionales!";
         }
         else {
-            $message = "El area de recomendacion aun esta ligada a uno o mas profesionales!";
+            $recommendationArea->professional()->detach();
+            if ($recommendationArea->delete())
+            {
+                $message = "El area de recomendacionn ha sido eliminado exitosamente!";
+            }
         }
 
         return redirect()->route('professionals')->with(['message' => $message]);

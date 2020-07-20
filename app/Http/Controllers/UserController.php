@@ -94,12 +94,18 @@ class UserController extends Controller
         // use Eloquent to change the relationship between models/tables
         if ($type->id === $user->userType->id)
         {
-            if ($user->update())
+            if($user->isDirty())
             {
-                $message = "El usuario ha sido actualizado exitosamente!";
-                return response()->json(['message' => $message, 'newNames' => $user->names,
-                    'newLastNames' => $user->last_names, 'newUserTypeId' => $type->id,
-                    'newUserType' => $type->name, 'newEmail' => $user->email], 200);
+                if ($user->update())
+                {
+                    $message = "El usuario ha sido actualizado exitosamente!";
+                    return response()->json(['message' => $message, 'newNames' => $user->names,
+                        'newLastNames' => $user->last_names, 'newUserTypeId' => $type->id,
+                        'newUserType' => $type->name, 'newEmail' => $user->email], 200);
+                }
+            }
+            else {
+                $message = "No hay cambios en los datos! Revise que en efecto este cambiando algun dato.";
             }
         }
         else{
@@ -115,7 +121,6 @@ class UserController extends Controller
         }
 
         return response()->json(['message' => $message], 500);
-
     }
 
     public function getDeleteUser($userId)

@@ -96,6 +96,18 @@ Route::post('/postCreateProfessional', [
     'middleware' => 'auth'
 ]);
 
+Route::post('/postUpdateProfessional', [
+    'uses' => 'ProfessionalController@postUpdateProfessional',
+    'as' => 'postUpdateProfessional',
+    'middleware' => 'auth'
+]);
+
+Route::get('/getDeleteProfessional/{professionalId}', [
+    'uses' => 'ProfessionalController@getDeleteProfessional',
+    'as' => 'getDeleteProfessional',
+    'middleware' => 'auth'
+]);
+
 Route::post('/postCreateOffice', [
     'uses' => 'OfficeController@postCreateOffice',
     'as' => 'createOffice',
