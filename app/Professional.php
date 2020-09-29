@@ -8,7 +8,7 @@ class Professional extends Model
 {
     public function recommendationArea()
     {
-        // Hasmany didn't work so change to manyto many relationship
+        // Hasmany didn't work so change to manytomany relationship
         // both parent and child has the belongsToMany relationship
         // REMEMBER this relationship is managed with a pivot table
         // the system would use the pivot table to match id vs id

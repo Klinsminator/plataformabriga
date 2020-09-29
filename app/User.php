@@ -19,4 +19,14 @@ class User extends Model implements Authenticatable
     {
         return $this->belongsTo('App\UserType');
     }
+
+    public function profile()
+    {
+        return $this->hasMany('App\Profile');
+    }
+
+    public function comentary()
+    {
+        return $this->hasMany('App\Commentary');
+    }
 }

@@ -16,6 +16,7 @@ class CreateRecommendationAreasTable extends Migration
         Schema::create('recommendation_areas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->timestamps('updated_at');
             $table->string('name');
             $table->text('description');
         });

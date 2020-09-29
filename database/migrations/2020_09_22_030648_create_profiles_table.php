@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSymptomsTable extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateSymptomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('symptoms', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->timestamps('updated_at');
-            $table->string('name');
-            $table->text('description');
+            $table->int('age');
+            $table->string('gender');
+            $table->integer('applicant_id');
+            $table->integer('user_id');
         });
     }
 
@@ -29,6 +31,6 @@ class CreateSymptomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('symptoms');
+        Schema::dropIfExists('profiles');
     }
 }
