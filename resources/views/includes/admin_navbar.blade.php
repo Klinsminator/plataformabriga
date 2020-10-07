@@ -15,11 +15,9 @@
                     Recursos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('professionals') }}"> Areas y Profesionales</a>
+                    <a class="dropdown-item" href="{{ route('professionals') }}"> Profesionales y Areas</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Síntomas</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Recomendaciones</a>
+                    <a class="dropdown-item" href="{{ route('symptoms') }}">Síntomas y Recomendaciones</a>
                 </div>
             </li>
             <li class="nav-item">

@@ -128,7 +128,7 @@
                             <h3 class="text-center margin-bottom-20">Crea un nuevo tipo de usuario</h3>
                             <div>
                                 <!-- CREATE TYPE FORM -->
-                                <form id="usersTypeForm" class="confirm login100-form validate-form center_div" action="{{ route('createUserType') }}" method="post">
+                                <form id="usersTypeForm" class="confirm login100-form validate-form center_div" action="{{ route('postCreateUserType') }}" method="post">
                                     <div class="wrap-input100 {{ $errors->has('name') ? 'has-error' : '' }}">
                                         <input class="input100" type="text" name="name" placeholder="Tipo" value="{{ Request::old('name') }}">
                                     </div>

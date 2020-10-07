@@ -368,7 +368,7 @@
                     <!-- MODAL BODY -->
                     <div class="modal-body">
                         <div>
-                            <!-- TYPE FORM -->
+                            <!-- MODAL PROFESSIONAL FORM -->
                             <form id="professionalsModalProfessionalForm" class="login100-form validate-form center_div">
                                 <div class="wrap-input100">
                                     <input id="professionalsModalProfessionalFormNames" class="input100" type="text" name="name">
@@ -405,7 +405,7 @@
                                     </select>
                                 </div>
                             </form>
-                            <!-- TYPE FORM -->
+                            <!-- MODAL PROFESSIONAL FORM -->
                         </div>
                     </div>
                     <!-- MODAL FOOTER -->
@@ -434,7 +434,7 @@
                     <!-- MODAL BODY -->
                     <div class="modal-body">
                         <div>
-                            <!-- TYPE FORM -->
+                            <!-- MODAL OFFICE FORM -->
                             <form id="professionalsModalOfficeForm" class="login100-form validate-form center_div">
                                 <div class="wrap-input100">
                                     <input id="professionalsModalOfficeFormName" class="input100" type="text" name="name">
@@ -452,7 +452,7 @@
                                     <textarea id="professionalsModalOfficeFormAddress" class="input100" type="text" name="address"></textarea>
                                 </div>
                             </form>
-                            <!-- TYPE FORM -->
+                            <!-- MODAL OFFICE FORM -->
                         </div>
                     </div>
                     <!-- MODAL FOOTER -->

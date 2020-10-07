@@ -50,7 +50,7 @@ Route::get('/getDeleteUser/{userId}', [
 
 Route::post('/postCreateUserType', [
     'uses' => 'UserTypeController@postCreateUserType',
-    'as' => 'postcreateUserType',
+    'as' => 'postCreateUserType',
     'middleware' => 'auth'
 ]);
 

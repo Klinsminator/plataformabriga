@@ -29,11 +29,11 @@
                                     </thead>
                                     <tbody>
                                         @foreach($symptoms as $symptom)
-                                            <tr id="prueba" class="professionalsTableRecommendationArea">
+                                            <tr id="prueba" class="symptomsTableSymptoms">
                                                 <td>{{ $symptom->id }}</td>
                                                 <td>{{ $symptom->name }}</td>
                                                 <td>{{ $symptom->description }}</td>
-                                                <td class="professionalsTableRecommendationAreaTd">
+                                                <td class="symptomsTableSymptomsTd">
                                                     <a class="edit" href="#">
                                                         <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
                                                     </a>
@@ -52,7 +52,7 @@
                     <hr class="dotted">
                     <div class="row">
                         <div class="col-12">
-                            <h3 class="margin-bottom-20">Profesionales</h3>
+                            <h3 class="margin-bottom-20">Recomendaciones</h3>
                             <div>
                                 <!-- RECOMMENDATIONS TABLE -->
                                 <table id="recommendations" class="table table-striped table-bordered" style="width:100%">
@@ -66,11 +66,11 @@
                                     </thead>
                                     <tbody>
                                     @foreach($recommendations as $recommendation)
-                                            <tr id="prueba" class="professionalsTableRecommendationArea">
+                                            <tr id="prueba" class="symptomsTableRecommendations">
                                                 <td>{{ $recommendation->id }}</td>
                                                 <td>{{ $recommendation->name }}</td>
                                                 <td>{{ $recommendation->description }}</td>
-                                                <td class="professionalsTableRecommendationAreaTd">
+                                                <td class="symptomsTableRecommendationsTd">
                                                     <a class="edit" href="#">
                                                         <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
                                                     </a>
@@ -134,13 +134,13 @@
                 </div>
             </div>
         </div>
-        <!-- MODAL AREA -->
-        <div class="modal fade" id="professionalsModalEditRecommendationArea" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- MODAL SYMPTOM -->
+        <div class="modal fade" id="symptomsModalEditSymptom" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- MODAL HEADER WITH TITLE AND CLOSE BUTTON -->
                     <div class="modal-header">
-                        <h3 class="modal-title">Editar area de recomendacion</h3>
+                        <h3 class="modal-title">Editar sintoma</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -148,37 +148,37 @@
                     <!-- MODAL BODY -->
                     <div class="modal-body">
                         <div>
-                            <!-- MODAL AREA FORM -->
-                            <form id="professionalsModalRecommendationAreaForm" class="login100-form validate-form center_div">
+                            <!-- MODAL SYMPTOM FORM -->
+                            <form id="symptomsModalSymptomForm" class="login100-form validate-form center_div">
                                 <div class="wrap-input100">
-                                    <input id="professionalsModalRecommendationAreaFormName" class="input100" type="text" name="name">
+                                    <input id="symptomsModalSymptomFormName" class="input100" type="text" name="name">
                                 </div>
                                 <div class="wrap-input100">
-                                    <textarea id="professionalsModalRecommendationAreaFormDescription" class="input100" type="text" name="description"></textarea>
+                                    <textarea id="symptomsModalSymptomFormDescription" class="input100" type="text" name="description"></textarea>
                                 </div>
                             </form>
-                            <!-- MODAL AREA FORM -->
+                            <!-- MODAL SYMPTOM FORM -->
                         </div>
                     </div>
                     <!-- MODAL FOOTER -->
                     <div class="modal-footer">
                         <div class="login100-form validate-form center_div">
                             <div class="container-login100-form-btn">
-                                <button id="professionalsModalRecommendationAreaFormIdSubmit" type="button" class="login100-form-btn">Guardar</button>
+                                <button id="symptomsModalSymptomFormIdSubmit" type="button" class="login100-form-btn">Guardar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- MODAL AREA -->
-        <!-- MODAL PROFESSIONAL -->
-        <div class="modal fade" id="professionalsModalEditProfessional" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- MODAL SYMPTOM -->
+        <!-- MODAL RECOMMENDATION -->
+        <div class="modal fade" id="symptomsModalEditRecommendation" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- MODAL HEADER WITH TITLE AND CLOSE BUTTON -->
                     <div class="modal-header">
-                        <h3 class="modal-title">Editar profesional</h3>
+                        <h3 class="modal-title">Editar recomendacion</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -186,131 +186,50 @@
                     <!-- MODAL BODY -->
                     <div class="modal-body">
                         <div>
-                            <!-- TYPE FORM -->
-                            <form id="professionalsModalProfessionalForm" class="login100-form validate-form center_div">
+                            <!-- MODAL RECOMMENDATION FORM -->
+                            <form id="symptomsModalRecommendationForm" class="login100-form validate-form center_div">
                                 <div class="wrap-input100">
-                                    <input id="professionalsModalProfessionalFormNames" class="input100" type="text" name="name">
+                                    <input id="symptomsModalRecommendationFormName" class="input100" type="text" name="name">
                                 </div>
                                 <div class="wrap-input100">
-                                    <input id="professionalsModalProfessionalFormLastNames" class="input100" type="text" name="phonePrimary">
-                                </div>
-                                <div class="wrap-input100">
-                                    <input id="professionalsModalProfessionalFormTitle" class="input100" type="text" name="phoneSecondary">
-                                </div>
-                                <div class="wrap-input100">
-                                    <input id="professionalsModalProfessionalFormProfession" class="input100" type="text" name="phoneSecondary">
-                                </div>
-                                <div class="wrap-input100">
-                                    <input id="professionalsModalProfessionalFormEmail" class="input100" type="email" name="email">
-                                </div>
-                                <div class="wrap-input100">
-                                    <input id="professionalsModalProfessionalFormPhone" class="input100" type="number" name="phoneSecondary">
-                                </div>
-                                <div class="wrap-input100">
-                                    <select id="professionalsModalProfessionalFormRecommendationArea" class="input100" name="type">
-                                        <option disabled selected value>Seleccione area</option>
-                                        @foreach($recommendationAreas as $area)
-                                            <option value={{ $area->id }}>{{ $area->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="wrap-input100">
-                                    <select id="professionalsModalProfessionalFormOffice" class="input100" name="type">
-                                        <option disabled selected value>Seleccione consultorio</option>
-                                        @foreach($offices as $office)
-                                            <option value={{ $office->id }}>{{ $office->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <textarea id="symptomsModalRecommendationFormDescription" class="input100" type="text" name="description"></textarea>
                                 </div>
                             </form>
-                            <!-- TYPE FORM -->
+                            <!-- MODAL RECOMMENDATION FORM -->
                         </div>
                     </div>
                     <!-- MODAL FOOTER -->
                     <div class="modal-footer ">
                         <div class="login100-form validate-form center_div">
                             <div class="container-login100-form-btn">
-                                <button id="professionalsModalProfessionalFormIdSubmit" type="button" class="login100-form-btn">Guardar</button>
+                                <button id="symptomsModalRecommendationFormIdSubmit" type="button" class="login100-form-btn">Guardar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- MODAL PROFESSIONAL -->
-        <!-- MODAL OFFICE -->
-        <div class="modal fade" id="professionalsModalEditOffice" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!-- MODAL HEADER WITH TITLE AND CLOSE BUTTON -->
-                    <div class="modal-header">
-                        <h3 class="modal-title">Editar consultorio</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <!-- MODAL BODY -->
-                    <div class="modal-body">
-                        <div>
-                            <!-- TYPE FORM -->
-                            <form id="professionalsModalOfficeForm" class="login100-form validate-form center_div">
-                                <div class="wrap-input100">
-                                    <input id="professionalsModalOfficeFormName" class="input100" type="text" name="name">
-                                </div>
-                                <div class="wrap-input100">
-                                    <input id="professionalsModalOfficeFormPhonePrimary" class="input100" type="number" name="phonePrimary">
-                                </div>
-                                <div class="wrap-input100">
-                                    <input id="professionalsModalOfficeFormPhoneSecondary" class="input100" type="number" name="phoneSecondary">
-                                </div>
-                                <div class="wrap-input100">
-                                    <input id="professionalsModalOfficeFormEmail" class="input100" type="email" name="email">
-                                </div>
-                                <div class="wrap-input100">
-                                    <textarea id="professionalsModalOfficeFormAddress" class="input100" type="text" name="address"></textarea>
-                                </div>
-                            </form>
-                            <!-- TYPE FORM -->
-                        </div>
-                    </div>
-                    <!-- MODAL FOOTER -->
-                    <div class="modal-footer ">
-                        <div class="login100-form validate-form center_div">
-                            <div class="container-login100-form-btn">
-                                <button id="professionalsModalOfficeFormIdSubmit" type="button" class="login100-form-btn">Guardar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- MODAL OFFICE -->
+        <!-- MODAL RECOMMENDATION -->
         @include('scripts.script_Login_v1')
         @include('scripts.datatables')
-        <script src="{{asset ('js/appProfessionalsView.js')}}"></script>
+        <script src="{{asset ('js/appSymptomsView.js')}}"></script>
         <script>
             $(document).ready(function() {
-                $('#areas').DataTable();
-            } );
-        </script>
-        <script>
-            $(document).ready(function() {
-                $('#professionals').DataTable({
+                $('#symptoms').DataTable({
                     "scrollX": true
                 });
             } );
         </script>
         <script>
             $(document).ready(function() {
-                $('#offices').DataTable();
+                $('#recommendations').DataTable();
             } );
         </script>
         <!-- ROUTE -->
         <script>
             var token = '{{ Session::token() }}';
-            var urlRecommendationArea = '{{ route('postUpdateRecommendationArea') }}';
-            var urlProfessional = '{{ route('postUpdateProfessional') }}';
-            var urlOffice = '{{ route('postUpdateOffice') }}';
+            var urlSymptom = '{{ route('postUpdateSymptom') }}';
+            var urlRecommendation = '{{ route('postUpdateRecommendation') }}';
         </script>
         <!-- ROUTE -->
         @include('scripts.confirm_message_block')
