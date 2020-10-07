@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>PA | Profesionales</title>
+        <title>PA | Profesionales y Areas</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @include('includes.head_Login_v1')
@@ -13,43 +13,6 @@
                 <div class="wrap-home100">
                     @include('includes.admin_navbar')
                     @include('includes.message_block')
-                    <div class="row">
-                        <div class="col-12">
-                            <h3 class="margin-bottom-20">Areas de Recomendacion</h3>
-                            <div>
-                                <!-- AREAS TABLE -->
-                                <table id="areas" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Nombre</th>
-                                            <th>Descripcion</th>
-                                            <th>Accion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($recommendationAreas as $area)
-                                            <tr id="prueba" class="professionalsTableRecommendationArea">
-                                                <td>{{ $area->id }}</td>
-                                                <td>{{ $area->name }}</td>
-                                                <td>{{ $area->description }}</td>
-                                                <td class="professionalsTableRecommendationAreaTd">
-                                                    <a class="edit" href="#">
-                                                        <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
-                                                    </a>
-                                                    <a onclick="return confirm('Seguro que desea continuar?')" href="{{ route('getDeleteRecommendationArea', ['recommendationAreaId' => $area->id]) }}">
-                                                        <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <!-- AREAS TABLE -->
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="dotted">
                     <div class="row">
                         <div class="col-12">
                             <h3 class="margin-bottom-20">Profesionales</h3>
@@ -105,6 +68,43 @@
                     <hr class="dotted">
                     <div class="row">
                         <div class="col-12">
+                            <h3 class="margin-bottom-20">Areas de Recomendacion</h3>
+                            <div>
+                                <!-- AREAS TABLE -->
+                                <table id="areas" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Descripcion</th>
+                                            <th>Accion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($recommendationAreas as $area)
+                                            <tr id="prueba" class="professionalsTableRecommendationArea">
+                                                <td>{{ $area->id }}</td>
+                                                <td>{{ $area->name }}</td>
+                                                <td>{{ $area->description }}</td>
+                                                <td class="professionalsTableRecommendationAreaTd">
+                                                    <a class="edit" href="#">
+                                                        <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
+                                                    </a>
+                                                    <a onclick="return confirm('Seguro que desea continuar?')" href="{{ route('getDeleteRecommendationArea', ['recommendationAreaId' => $area->id]) }}">
+                                                        <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <!-- AREAS TABLE -->
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="dotted">
+                    <div class="row">
+                        <div class="col-12">
                             <h3 class="margin-bottom-20">Consultorios</h3>
                             <div>
                                 <!-- OFFICES TABLE -->
@@ -147,32 +147,11 @@
                     </div>
                     <hr class="dotted">
                     <div class="row">
-                        <div class="col-4">
-                            <h3 class="text-center margin-bottom-20">Crea un area</h3>
-                            <div>
-                                <!-- CREATRECOMMENDATIONEAREA FORM -->
-                                <form id="createRecommendationAreaForm" class="confirm login100-form validate-form center_div" action="{{ route('createRecommendationArea') }}" method="post">
-                                    <div class="wrap-input100 {{ $errors->has('name') ? 'has-error' : '' }}">
-                                        <input class="input100" type="text" name="name" placeholder="Nombre" value="{{ Request::old('name') }}">
-                                    </div>
-                                    <div class="wrap-input100 {{ $errors->has('description') ? 'has-error' : '' }}">
-                                        <textarea class="input100" type="text" name="description" placeholder="Descripcion" value="{{ Request::old('description') }}"></textarea>
-                                    </div>
-                                    <div class="container-login100-form-btn">
-                                        <button type="submit" class="login100-form-btn">
-                                            Crear
-                                        </button>
-                                        <input type="hidden" name="_token" value="{{ Session::token() }}">
-                                    </div>
-                                </form>
-                                <!-- CREATRECOMMENDATIONEAREA FORM -->
-                            </div>
-                        </div>
-                        <div class="col-4">
+                    <div class="col-4">
                             <h3 class="text-center margin-bottom-20">Crea un profesional</h3>
                             <div>
                                 <!-- CREATEPROFESSIONAL FORM -->
-                                <form id="createProfessionalForm" class="confirm login100-form validate-form center_div" action="{{ route('createProfessional') }}" method="post">
+                                <form id="postCreateProfessionalForm" class="confirm login100-form validate-form center_div" action="{{ route('postCreateProfessional') }}" method="post">
                                     <div class="wrap-input100 {{ $errors->has('names') ? 'has-error' : '' }}">
                                         <input class="input100" type="text" name="names" placeholder="Nombres" value="{{ Request::old('names') }}">
                                     </div>
@@ -218,10 +197,31 @@
                             </div>
                         </div>
                         <div class="col-4">
+                            <h3 class="text-center margin-bottom-20">Crea un area</h3>
+                            <div>
+                                <!-- CREATRECOMMENDATIONEAREA FORM -->
+                                <form id="postCreateRecommendationAreaForm" class="confirm login100-form validate-form center_div" action="{{ route('postCreateRecommendationArea') }}" method="post">
+                                    <div class="wrap-input100 {{ $errors->has('name') ? 'has-error' : '' }}">
+                                        <input class="input100" type="text" name="name" placeholder="Nombre" value="{{ Request::old('name') }}">
+                                    </div>
+                                    <div class="wrap-input100 {{ $errors->has('description') ? 'has-error' : '' }}">
+                                        <textarea class="input100" type="text" name="description" placeholder="Descripcion" value="{{ Request::old('description') }}"></textarea>
+                                    </div>
+                                    <div class="container-login100-form-btn">
+                                        <button type="submit" class="login100-form-btn">
+                                            Crear
+                                        </button>
+                                        <input type="hidden" name="_token" value="{{ Session::token() }}">
+                                    </div>
+                                </form>
+                                <!-- CREATRECOMMENDATIONEAREA FORM -->
+                            </div>
+                        </div>
+                        <div class="col-4">
                             <h3 class="text-center margin-bottom-20">Crea un consultorio</h3>
                             <div>
                                 <!-- CREATEOFFICE FORM -->
-                                <form id="createOfficeForm" class="confirm login100-form validate-form center_div" action="{{ route('createOffice') }}" method="post">
+                                <form id="postCreateOfficeForm" class="confirm login100-form validate-form center_div" action="{{ route('postCreateOffice') }}" method="post">
                                     <div class="wrap-input100 {{ $errors->has('name') ? 'has-error' : '' }}">
                                         <input class="input100" type="text" name="name" placeholder="Nombre" value="{{ Request::old('name') }}">
                                     </div>
@@ -254,7 +254,7 @@
                             <h3 class="text-center margin-bottom-20">Asignar area a profesional</h3>
                             <div>
                                 <!-- ASSIGNAREATOPROFESSIONAL FORM -->
-                                <form id="assignAreaToProfessionalForm" class="login100-form validate-form center_div" action="{{ route('assignAreaToProfessional') }}" method="post">
+                                <form id="postAssignAreaToProfessional" class="login100-form validate-form center_div" action="{{ route('postAssignAreaToProfessional') }}" method="post">
                                     <div class="wrap-input100 {{ $errors->has('professionalID') ? 'has-error' : '' }}">
                                         <select class="input100" name="professionalID">
                                             <option disabled selected value>Seleccione Profesional</option>
@@ -285,7 +285,7 @@
                             <h3 class="text-center margin-bottom-20">Asignar consultorio a profesional</h3>
                             <div>
                                 <!-- ASSIGNOFFICETOPROFESSIONAL FORM -->
-                                <form id="assignOfficeToProfessionalForm" class="login100-form validate-form center_div" action="{{ route('assignOfficeToProfessional') }}" method="post">
+                                <form id="postAssignOfficeToProfessionalForm" class="login100-form validate-form center_div" action="{{ route('postAssignOfficeToProfessional') }}" method="post">
                                     <div class="wrap-input100 {{ $errors->has('professionalID') ? 'has-error' : '' }}">
                                         <select class="input100" name="professionalID">
                                             <option disabled selected value>Seleccione Profesional</option>

@@ -50,7 +50,7 @@ Route::get('/getDeleteUser/{userId}', [
 
 Route::post('/postCreateUserType', [
     'uses' => 'UserTypeController@postCreateUserType',
-    'as' => 'createUserType',
+    'as' => 'postcreateUserType',
     'middleware' => 'auth'
 ]);
 
@@ -74,7 +74,7 @@ Route::get('/users', [
 /*---------- PROFESSIONALS ----------*/
 Route::post('/postCreateRecommendationArea', [
     'uses' => 'RecommendationAreaController@postCreateRecommendationArea',
-    'as' => 'createRecommendationArea',
+    'as' => 'postCreateRecommendationArea',
     'middleware' => 'auth'
 ]);
 
@@ -92,7 +92,7 @@ Route::get('/getDeleteRecommendationArea/{recommendationAreaId}', [
 
 Route::post('/postCreateProfessional', [
     'uses' => 'ProfessionalController@postCreateProfessional',
-    'as' => 'createProfessional',
+    'as' => 'postCreateProfessional',
     'middleware' => 'auth'
 ]);
 
@@ -110,7 +110,7 @@ Route::get('/getDeleteProfessional/{professionalId}', [
 
 Route::post('/postCreateOffice', [
     'uses' => 'OfficeController@postCreateOffice',
-    'as' => 'createOffice',
+    'as' => 'postCreateOffice',
     'middleware' => 'auth'
 ]);
 
@@ -128,17 +128,59 @@ Route::get('/getDeleteOffice/{officeId}', [
 
 Route::post('/postAssignAreaToProfessional', [
     'uses' => 'ProfessionalController@postAssignAreaToProfessional',
-    'as' => 'assignAreaToProfessional',
+    'as' => 'postAssignAreaToProfessional',
     'middleware' => 'auth'
 ]);
 
 Route::post('/postAssignOfficeToProfessional', [
     'uses' => 'ProfessionalController@postAssignOfficeToProfessional',
-    'as' => 'assignOfficeToProfessional',
+    'as' => 'postAssignOfficeToProfessional',
     'middleware' => 'auth'
 ]);
 
 Route::get('/professionals', [
     'uses' => 'ProfessionalController@getProfessionalsView',
     'as' => 'professionals'
+]);
+
+/*---------- SYMPTOMS ----------*/
+Route::post('/postCreateSymptom', [
+    'uses' => 'SymptomController@postCreateSymptom',
+    'as' => 'postCreateSymptom',
+    'middleware' => 'auth'
+]);
+
+Route::post('/postUpdateSymptom', [
+    'uses' => 'SymptomController@postUpdateSymptom',
+    'as' => 'postUpdateSymptom',
+    'middleware' => 'auth'
+]);
+
+Route::get('/getDeleteSymptom/{symptomId}', [
+    'uses' => 'OfficeController@getDeleteSymptom',
+    'as' => 'getDeleteSymptom',
+    'middleware' => 'auth'
+]);
+
+Route::post('/postCreateRecommendation', [
+    'uses' => 'RecommendationController@postCreateRecommendation',
+    'as' => 'postCreateRecommendation',
+    'middleware' => 'auth'
+]);
+
+Route::post('/postUpdateRecommendation', [
+    'uses' => 'RecommendationController@postUpdateRecommendation',
+    'as' => 'postUpdateRecommendation',
+    'middleware' => 'auth'
+]);
+
+Route::get('/getDeleteRecommendation/{recommendationId}', [
+    'uses' => 'RecommendationController@getDeleteRecommendation',
+    'as' => 'getDeleteRecommendation',
+    'middleware' => 'auth'
+]);
+
+Route::get('/symptoms', [
+    'uses' => 'SymptomController@getSymptomsView',
+    'as' => 'symptoms'
 ]);
