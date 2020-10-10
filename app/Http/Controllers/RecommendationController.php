@@ -51,7 +51,7 @@ class RecommendationController extends Controller
         $message = "Error desconocido!";
         if($recommendation->isDirty())
         {
-            if ($office->update())
+            if ($recommendation->update())
             {
                 $message = "La Recomendacion ha sido actualizada exitosamente!";
                 return response()->json(['message' => $message, 'newName' => $recommendation->name,
