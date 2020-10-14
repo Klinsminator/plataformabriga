@@ -82,8 +82,8 @@ class RecommendationController extends Controller
             $message = "Error, La Recomendacion aun se encuentra ligada a uno o mas perfiles!";
         }
         else {
-            $office->professional()->detach();
-            if ($office->delete())
+            $recommendation->profile()->detach();
+            if ($recommendation->delete())
             {
                 $message = "La recomendacion ha sido eliminada exitosamente!";
             }

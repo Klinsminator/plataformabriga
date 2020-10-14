@@ -157,7 +157,7 @@ Route::post('/postUpdateSymptom', [
 ]);
 
 Route::get('/getDeleteSymptom/{symptomId}', [
-    'uses' => 'OfficeController@getDeleteSymptom',
+    'uses' => 'SymptomController@getDeleteSymptom',
     'as' => 'getDeleteSymptom',
     'middleware' => 'auth'
 ]);

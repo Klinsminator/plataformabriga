@@ -15,7 +15,6 @@ class CreateProfileSymptomTable extends Migration
     {
         Schema::create('profile_symptom', function (Blueprint $table) {
             $table->id();
-            $table->boolean('profile_state');
             $table->integer('profile_id');
             $table->integer('symptom_id');
         });

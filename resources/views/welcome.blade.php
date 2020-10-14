@@ -22,16 +22,10 @@
                         <div class="wrap-input100 validate-input {{ $errors->has('username') ? 'has-error' : '' }}" data-validate = "Nombre de usuario requerido">
                             <input class="input100" type="text" name="username" placeholder="Usuario" value="{{ Request::old('username') }}">
                             <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                            </span>
                         </div>
                         <div class="wrap-input100 validate-input {{ $errors->has('password') ? 'has-error' : '' }}" data-validate = "Contraseña requerida">
                             <input class="input100" type="password" name="password" placeholder="Contraseña" value="{{ Request::old('password') }}">
                             <span class="focus-input100"></span>
-                            <span class="symbol-input100">
-                                <i class="fa fa-lock" aria-hidden="true"></i>
-                            </span>
                         </div>
                         <div class="container-login100-form-btn">
                             <button class="login100-form-btn">
