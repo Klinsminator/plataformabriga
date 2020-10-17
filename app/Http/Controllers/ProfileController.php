@@ -11,254 +11,122 @@ use phpDocumentor\Reflection\Types\Integer;
 
 class ProfileController extends Controller
 {
-    public function postCreateProfessional(Request $request)
+    public function postCreateProfile(Request $request)
     {
+        /*
+            State:
+                0: open
+                1: open and assigned to user
+                2: resolved
+                3: on feedback process
+                4: closed
+        */
         $this->validate($request, [
-            'names' => 'max:120|required',
-            'lastNames' => 'max:120|required',
-            'title' => 'max:120|required',
-            'profession' => 'max:120|required',
-            'email' => 'email|unique:professionals|unique:users|required',
-            'phone' => 'min:8|max:15|required',
-            'recommendationAreaId' => 'required',
-            'officeId' => 'required'
+            'age' => 'min:0|max:99|required',
+            'gender' => 'max:120|required',
+            'state' => 'min:0|max:1|required',
+            'applicantId' => 'required',
+            'userId' => 'required'
         ]);
 
-        $names = $request['names'];
-        $lastNames = $request['lastNames'];
-        $title = $request['title'];
-        $profession = $request['profession'];
-        $personalEmail = $request['email'];
-        $personalPhone = $request['phone'];
-        $recommendationArea = RecommendationArea::find($request['recommendationAreaId']);
-        $office = Office::find($request['officeId']);
+        $age = $request['age'];
+        $gender = $request['gender'];
+        $state = $request['state'];
+        $applicant = Applicant::find($request['applicantId']);
+        $user = User::find($request['userId']);
 
-        $professional = new Professional();
-        $professional->names = $names;
-        $professional->last_names = $lastNames;
-        $professional->title = $title;
-        $professional->profession = $profession;
-        $professional->email = $personalEmail;
-        $professional->phone = $personalPhone;
+        $profile = new Profile();
+        $profile->age = $age;
+        $profile->gender = $gender;
+        $profile->state = $state;
 
         $message = "Error desconocido!";
-        if($office && $recommendationArea)
+        if ($profile->save())
         {
-            if ($professional->save())
-            {
-                // All this flow is for the manytomany relationship
-                $professional->office()->attach($office);
-                $professional->recommendationArea()->attach($recommendationArea);
-
-                $message = "El Profesional ha sido agregado exitosamente!";
-                if($professional->recommendationArea()->where('professional_id', $professional) &&
-                    $professional->office()->where('proffesional_id', $professional))
-                {
-                    $message .= " El area de recomendacion y el consultorio se agregaron exitosamente!";
-                }
-                else {
-                    $message .= " ERROR: El area de recomendacion y/o el consultorio no ha
-                    podido ser agregado por un error desconocido!";
-                }
-            }
-        }
-        else {
-            $message = "El area de recomendacion y/o el consultorio no se ha encontrado!";
+            $message = " El Perfil ha sido creado exitosamente!"; 
         }
 
-        return redirect()->route('professionals')->with(['message' => $message]);
+        if($applicant)
+        {
+            $profile->applicant()->associate($applicant);
+            $message .= " El Aplicante ha sido asociado exitosamente!";
+        }
+
+        if($user)
+        {
+            $profile->user()->associate($user);
+            $message .= " El Usuario ha sido asociado exitosamente!";
+        }
+
+        return response()->json(['message' => $message], 200);
     }
 
-    public function postUpdateProfessional(Request $request)
+    public function postUpdateProfileState(Request $request)
     {
         $this->validate($request, [
             'id' => 'required',
-            'names' => 'max:120',
-            'lastNames' => 'max:120',
-            'title' => 'max:120',
-            'profession' => 'max:120',
-            'email' => 'email',
-            'phone' => 'min:8|max:15'
+            'state' => 'min:0|max:4|required',
         ]);
 
         $id = $request['id'];
-        $names = $request['names'];
-        $lastNames = $request['lastNames'];
-        $title = $request['title'];
-        $profession = $request['profession'];
-        $personalEmail = $request['email'];
-        $personalPhone = $request['phone'];
-        $recommendationArea = RecommendationArea::find($request['recommendationArea']);
-        $office = Office::find($request['office']);
+        $state = $request['state'];
 
-        $professional = Professional::where('id', $id)->first();
-        if ($names && $names != $professional->names)
-            $professional->names = $names;
-        if ($lastNames && $lastNames != $professional->last_names)
-            $professional->last_names = $lastNames;
-        if ($title && $title != $professional->title)
-            $professional->title = $title;
-        if ($profession && $profession != $professional->profession)
-            $professional->profession = $profession;
-        if ($personalEmail && $personalEmail != $professional->email)
-            $professional->email = $personalEmail;
-        if ($personalPhone && $personalPhone != $professional->phone)
-            $professional->phone = $personalPhone;
-
-        // Need to extract the models from the manytomany relationship
-        $professionalRecommendationArea = null;
-        $professionalOffice = null;
-
-        foreach ($professional->recommendationArea as $area)
-        {
-            $professionalRecommendationArea = $area;
-        }
-        foreach ($professional->office as $ofi)
-        {
-            $professionalOffice = $ofi;
-        }
+        $profile = Profile::where('id', $id)->first();
+        if ($state && $state != $profile->state)
+            $profile->state = $state;
 
         $message = "Error desconocido!";
-        if ($recommendationArea->id === $professionalRecommendationArea->id
-            && $office->id === $professionalOffice->id)
+        if($profile->isDirty())
         {
-            if($professional->isDirty())
+            if ($profile->update())
             {
-                if ($professional->update())
-                {
-                    $message = "El profesional ha sido actualizado exitosamente!";
-                    return response()->json(['message' => $message, 'newTitle' => $professional->title,
-                        'newNames' => $professional->names, 'newLastNames' => $professional->last_names,
-                        'newRecommendationArea' => $recommendationArea->name, 'newProfession' => $professional->profession,
-                        'newEmail' => $professional->email, 'newPhonePrimary' => $professional->phone,
-                        'newOffice' => $office->name, 'newRecommendationAreaId' => $recommendationArea->id,
-                        'newOfficeId' => $office->id], 200);
-                }
+                $message = "El estado del Perfil ha sido actualizado exitosamente!";
+                return response()->json(['message' => $message, 'newState' => $profile->state], 200);
             }
-            else {
-                $message = "No hay cambios en los datos! Revise que en efecto este cambiando algun dato.";
-            }
-        }
-        else{
-            // This is for a manytomany case in which the belonged modifies to whom belongs
-            // If it is changed, detach current and attach new one
-            if ($recommendationArea->id !== $professionalRecommendationArea->id)
-            {
-                $professional->recommendationArea()->detach($professionalRecommendationArea->id);
-                $professional->recommendationArea()->attach($recommendationArea->id);
-            }
-            if ($office->id !== $professionalOffice->id)
-            {
-                $professional->office()->detach($professionalOffice->id);
-                $professional->office()->attach($office->id);
-            }
-
-            if ($professional->save())
-            {
-                $message = "El profesional ha sido actualizado exitosamente!";
-                return response()->json(['message' => $message, 'newTitle' => $professional->title,
-                    'newNames' => $professional->names, 'newLastNames' => $professional->last_names,
-                    'newRecommendationArea' => $recommendationArea->name, 'newProfession' => $professional->profession,
-                    'newEmail' => $professional->email, 'newPhonePrimary' => $professional->phone,
-                    'newOffice' => $office->name, 'newRecommendationAreaId' => $recommendationArea->id,
-                    'newOfficeId' => $office->id], 200);
-            }
-        }
-
-        return redirect()->route('professionals')->with(['message' => $message]);
-    }
-
-    public function postAssignAreaToProfessional(Request $request)
-    {
-        $this->validate($request, [
-            'areaId' => 'required',
-            'professionalID' => 'required'
-        ]);
-
-        $areaId = $request['areaId'];
-        $professionalID = $request['professionalID'];
-
-        $professional = Professional::find($professionalID);
-
-        $message = "Error desconocido!";
-        $full = 0;
-        foreach ($professional->recommendationArea as $area)
-        {
-            $full ++;
-        }
-
-        if($full>0)
-        {
-            $message = "Error, el profesional ya se encuentra ligado a un area de recomendacion!";
         }
         else {
-            $professional->recommendationArea()->attach($areaId);
-            if ($professional->recommendationArea()->where('professional_id', $professional))
-            {
-                $message = "El Profesional ha sido actualizado exitosamente!";
-            }
+            $message = "No hay cambios en los datos! Revise que en efecto este cambiando algun dato.";
         }
-
-        return redirect()->route('professionals')->with(['message' => $message]);
+    
+        return response()->json(['message' => $message], 500);
     }
 
-    public function postAssignOfficeToProfessional(Request $request)
+    public function postAssignUserToProfile(Request $request)
     {
         $this->validate($request, [
-            'officeId' => 'required',
-            'professionalID' => 'required'
+            'profileId' => 'required',
+            'userId' => 'required'
         ]);
 
-        $officeId = $request['officeId'];
-        $professionalID = $request['professionalID'];
+        $profileId = $request['profileId'];
+        $user = User::find($request['userId']);
 
-        $professional = Professional::find($professionalID);
+        $profile = Profile::where('id', $id)->first();
 
         $message = "Error desconocido!";
-        $full = 0;
-        foreach ($professional->office as $office)
+        if ($user->id !== $profile->user->id)
         {
-            $full ++;
-        }
-
-        if($full>0)
-        {
-            $message = "Error, el profesional ya se encuentra ligado a un consultorio!";
-        }
-        else {
-            $professional->office()->attach($officeId);
-            if ($professional->office()->where('professional_id', $professional))
+            // This is for a belongsTo case in which the belonged modifies to whom belongs
+            $profile->user()->associate($user);
+            if ($profile->save())
             {
-                $message = "El Profesional ha sido actualizado exitosamente!";
+                $message = "El Perfil ha sido agregado al Usuario exitosamente!";
+                return response()->json(['message' => $message, 'newNames' => $user->names], 200);
             }
         }
-
-        return redirect()->route('professionals')->with(['message' => $message]);
-    }
-
-    public function getDeleteProfessional($professionalId)
-    {
-        $professional = Professional::find($professionalId);
-
-        $message = "Error desconocido!";
-
-        $professional->recommendationArea()->detach();
-        $professional->office()->detach();
-        if ($professional->delete())
+        else
         {
-            $message = "El profesional ha sido eliminado exitosamente!";
+            $message = "No hay cambios en los datos! Revise que en efecto este cambiando algun dato.";
         }
 
         return redirect()->route('professionals')->with(['message' => $message]);
     }
 
-    public function getProfessionalsView()
+    public function getDashboard()
     {
-        $recommendationAreas = RecommendationArea::all();
-        $professionals = Professional::all()->load(['recommendationArea', 'office']);
-        $offices = Office::all();
-        //Log::debug('Some message.');
-        return view('professionals/professionals', ['recommendationAreas' => $recommendationAreas,
-            'professionals' => $professionals, 'offices' => $offices]);
+        $activeProfile = Profile::whereIn('state', [0, 1, 3]);
+        $inactiveProfile = Profile::whereNotIn('state', [0, 1, 3]);
+        return view('dashboard', ['activeProfiles' => $activeProfile, 
+            'inactiveProfiles' => $inactiveProfile]);
     }
 }

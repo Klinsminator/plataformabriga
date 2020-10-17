@@ -155,11 +155,6 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function getDashboard()
-    {
-        return view('dashboard');
-    }
-
     public function getUsersView()
     {
         $users = User::all();
