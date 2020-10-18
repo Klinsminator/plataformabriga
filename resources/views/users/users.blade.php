@@ -241,6 +241,11 @@
                 $('#users').DataTable();
             } );
         </script>
+        <script>
+            $(document).ready(function() {
+                $('#types').DataTable();
+            } );
+        </script>
         <!-- ROUTE -->
         <script>
             var token = '{{ Session::token() }}';
