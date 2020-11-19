@@ -19,8 +19,11 @@ class CreateProfilesTable extends Migration
             $table->string('state');
             $table->integer('age');
             $table->string('gender');
-            $table->integer('applicant_id');
-            $table->integer('user_id');
+            $table->boolean('prev_diagnostic');
+            $table->boolean('prev_treatment');
+            $table->text('commentary');
+            $table->integer('applicant_id')->nullable();
+            $table->integer('user_id')->nullable();
         });
     }
 

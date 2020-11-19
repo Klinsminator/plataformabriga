@@ -122,6 +122,103 @@ class ProfileController extends Controller
         return redirect()->route('professionals')->with(['message' => $message]);
     }
 
+    public function postCreateProfileFromForm(Request $request)
+    {
+        //https://www.youtube.com/watch?v=-OfXvb7GY1s
+        $this->validate($request, [
+            'name' => 'max:120',
+            'email' => 'email',
+            'state' => 'min:0|max:1|required',
+            'age' => 'min:0|max:99|required',
+            'gender' => 'max:120|required',
+            'diagnostic' => 'required',
+            'treatment' => 'required',
+            'commentary' => 'max:250|required',
+            'cry' => 'required',
+            'noises' => 'required',
+            'walk' => 'required',
+            'visual' => 'required',
+            'inattention' => 'required',
+            'movements' => 'required',
+            'instructions' => 'required',
+            'rituals' => 'required',
+            'language' => 'required',
+            'eco' => 'required',
+            'social' => 'required',
+            'jokes' => 'required',
+            'agresive' => 'required',
+        ]);
+        $message = "Error desconocido!";
+
+        // Applicant creation
+        $name = $request['name'];
+        $email = $request['email'];
+
+        $applicant = Applicant::where('id', $id)
+            ->where('name', $name)->first();
+        
+        if (!$applicant) 
+        {
+            $applicant = new Applicant();
+            $applicant->name = $name;
+            $applicant->email = $email;
+            if ($applicant->save())
+            {
+                $message = "El Aplicante ha sido creado exitosamente!";
+            }
+        }
+        else {
+            $message = "El Aplicante ha sido encontrado exitosamente!";
+        }
+        
+        // Profile creation
+        $state = $request['state'];
+        $age = $request['age'];
+        $gender = $request['gender'];
+        $diagnostic = $request['diagnostic'];
+        $treatment = $request['treatment'];
+        $commentary = $request['commentary'];
+
+        $profile = new Profile();
+        $profile->state = $state;
+        $profile->age = $age;
+        $profile->gender = $gender;
+        $profile->prev_diagnostic = $diagnostic;
+        $profile->prev_treatment = $treatment;
+        $profile->commentary = $commentary;
+
+        if ($applicant->profile()->save($profile))
+        {
+            $message .= " El Perfil ha sido creado exitosamente!";
+
+            //Assigning symptoms to profile
+            $data = $request->all();
+            $index = 0;
+            $symptomsAttached = 0;
+            foreach ($data as $key => $value) {
+                $index = $loop->index;
+                if ($index > 7 && $value === 'si')
+                {
+                    $profile->symptom()->attach($index - 1);
+                    if ($profile->symptom()->where('profile_id', $profile))
+                    {
+                        $symptomsAttached += 1;
+                    }
+                }
+            }
+
+            if ($symptomsAttached > 0) 
+            {
+                $message .= " Los sintomas han sido ligados al perfil!";
+            }
+            return response()->json(['message' => $message], 200);
+        }
+        else{
+            $message .= " El Perfil no se ha podido crear!"; 
+            return response()->json(['message' => $message], 500);
+        }
+    }
+
     public function getDashboard()
     {
         $activeProfile = Profile::whereIn('state', [0, 1, 3]);
