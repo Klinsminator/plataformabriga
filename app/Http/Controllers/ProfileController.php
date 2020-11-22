@@ -221,8 +221,8 @@ class ProfileController extends Controller
 
     public function getDashboard()
     {
-        $activeProfile = Profile::whereIn('state', [0, 1, 3]);
-        $inactiveProfile = Profile::whereNotIn('state', [0, 1, 3]);
+        $activeProfile = Profile::whereIn('state', [0, 1, 3])->get();
+        $inactiveProfile = Profile::whereIn('state', [2, 4])->get();
         return view('dashboard', ['activeProfiles' => $activeProfile, 
             'inactiveProfiles' => $inactiveProfile]);
     }

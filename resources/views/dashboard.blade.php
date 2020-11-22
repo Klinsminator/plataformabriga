@@ -33,23 +33,16 @@
                                     <tbody>
                                         @foreach($activeProfiles as $profile)
                                             <tr id="prueba" class="dashboardTableProfiles">
-                                                <td>{{ $profiles->id }}</td>
-                                                @foreach($profiles->applicant as $applicant)
-                                                    <td id="{{ $applicant->id }}">{{ $applicant->names }}</td>
-                                                @endforeach
-                                                <td>{{ $profiles->age }}</td>
-                                                <td>{{ $profiles->gender }}</td>
-                                                <td>{{ $profiles->created_at }}</td>
-                                                @foreach($profiles->user as $user)
-                                                    <td id="{{ $user->id }}">{{ $user->names }}</td>
-                                                @endforeach
-                                                <td>{{ $profiles->state }}</td>
+                                                <td>{{ $profile->id }}</td>
+                                                <td id="{{ $profile->applicant->id }}">{{ $profile->applicant->name }}</td>
+                                                <td>{{ $profile->age }}</td>
+                                                <td>{{ $profile->gender }}</td>
+                                                <td>{{ $profile->created_at }}</td>
+                                                <td id="{{ $profile->user ? $profile->user->id : '' }}">{{ $profile->user ? $profile->user->names : '' }}</td>
+                                                <td>{{ $profile->state }}</td>
                                                 <td class="professionalsTableProfessionalTd">
-                                                    <a class="edit" href="#">
-                                                        <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
-                                                    </a>
-                                                    <a onclick="return confirm('Seguro que desea continuar?')" href="{{ route('getDeleteProfessional', ['professionalId' => $professional->id]) }}">
-                                                        <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                                    <a class="edit" href="{{ route('symptoms') }}">
+                                                        <i class="fa fa-eye" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -67,7 +60,7 @@
                             <div>
                                 <!-- INACTIVE PROFILES TABLE -->
                                 <table id="inactiveProfiles" class="table table-striped table-bordered" style="width:100%">
-                                    <thead>
+                                <thead>
                                         <tr>
                                             <th>ID</th>
                                             <th>Solicitante</th>
@@ -82,23 +75,16 @@
                                     <tbody>
                                         @foreach($inactiveProfiles as $profile)
                                             <tr id="prueba" class="dashboardTableProfiles">
-                                                <td>{{ $profiles->id }}</td>
-                                                @foreach($profiles->applicant as $applicant)
-                                                    <td id="{{ $applicant->id }}">{{ $applicant->names }}</td>
-                                                @endforeach
-                                                <td>{{ $profiles->age }}</td>
-                                                <td>{{ $profiles->gender }}</td>
-                                                <td>{{ $profiles->created_at }}</td>
-                                                @foreach($profiles->user as $user)
-                                                    <td id="{{ $user->id }}">{{ $user->names }}</td>
-                                                @endforeach
-                                                <td>{{ $profiles->state }}</td>
+                                                <td>{{ $profile->id }}</td>
+                                                <td id="{{ $profile->applicant->id }}">{{ $profile->applicant->name }}</td>
+                                                <td>{{ $profile->age }}</td>
+                                                <td>{{ $profile->gender }}</td>
+                                                <td>{{ $profile->created_at }}</td>
+                                                <td id="{{ $profile->user ? $profile->user->id : '' }}">{{ $profile->user ? $profile->user->names : '' }}</td>
+                                                <td>{{ $profile->state }}</td>
                                                 <td class="professionalsTableProfessionalTd">
-                                                    <a class="edit" href="#">
-                                                        <i class="fa fa-pencil-square" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
-                                                    </a>
-                                                    <a onclick="return confirm('Seguro que desea continuar?')" href="{{ route('getDeleteProfessional', ['professionalId' => $professional->id]) }}">
-                                                        <i class="fa fa-minus-square" aria-hidden="true" style="font-size: 20px; color: red"></i>
+                                                    <a class="edit" href="{{ route('symptoms') }}">
+                                                        <i class="fa fa-eye" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
                                                     </a>
                                                 </td>
                                             </tr>
