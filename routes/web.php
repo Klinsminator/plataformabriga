@@ -184,3 +184,50 @@ Route::get('/symptoms', [
     'uses' => 'SymptomController@getSymptomsView',
     'as' => 'symptoms'
 ]);
+
+/*---------- PROFILES ----------*/
+Route::post('/postCreateSymptom', [
+    'uses' => 'SymptomController@postCreateSymptom',
+    'as' => 'postCreateSymptom',
+    'middleware' => 'auth'
+]);
+
+Route::post('/postUpdateSymptom', [
+    'uses' => 'SymptomController@postUpdateSymptom',
+    'as' => 'postUpdateSymptom',
+    'middleware' => 'auth'
+]);
+
+Route::get('/getDeleteSymptom/{symptomId}', [
+    'uses' => 'SymptomController@getDeleteSymptom',
+    'as' => 'getDeleteSymptom',
+    'middleware' => 'auth'
+]);
+
+Route::post('/postCreateRecommendation', [
+    'uses' => 'RecommendationController@postCreateRecommendation',
+    'as' => 'postCreateRecommendation',
+    'middleware' => 'auth'
+]);
+
+Route::post('/postUpdateRecommendation', [
+    'uses' => 'RecommendationController@postUpdateRecommendation',
+    'as' => 'postUpdateRecommendation',
+    'middleware' => 'auth'
+]);
+
+Route::get('/getDeleteRecommendation/{recommendationId}', [
+    'uses' => 'RecommendationController@getDeleteRecommendation',
+    'as' => 'getDeleteRecommendation',
+    'middleware' => 'auth'
+]);
+
+/*Route::get('/profile/{id}', [
+    'uses' => 'ProfileController@getApplicantProfileView',
+    'as' => 'applicantProfile'
+]);*/
+
+Route::get('/profile', [
+    'uses' => 'ProfileController@getApplicantProfileView',
+    'as' => 'applicantProfile'
+]);

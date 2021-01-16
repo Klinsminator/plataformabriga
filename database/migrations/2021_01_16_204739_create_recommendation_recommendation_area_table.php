@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfileRecommendationTable extends Migration
+class CreateRecommendationRecommendationAreaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateProfileRecommendationTable extends Migration
      */
     public function up()
     {
-        Schema::create('profile_recommendation', function (Blueprint $table) {
+        Schema::create('recommendation_recommendation_area', function (Blueprint $table) {
             $table->id();
-            $table->integer('profile_id');
             $table->integer('recommendation_id');
+            $table->integer('recommendation_area_id');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateProfileRecommendationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile_recommendation');
+        Schema::dropIfExists('recommendation_recommendation_area');
     }
 }

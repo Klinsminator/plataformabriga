@@ -8,6 +8,11 @@ class Recommendation extends Model
 {
     public function profile()
     {
-        return $this->belongsToMany('App\Profile');
+        return $this->belongsTo('App\Profile');
+    }
+
+    public function RecommendationArea()
+    {
+        return $this->belongsToMany('App\RecommendationArea');
     }
 }

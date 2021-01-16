@@ -41,7 +41,7 @@
                                                 <td id="{{ $profile->user ? $profile->user->id : '' }}">{{ $profile->user ? $profile->user->names : '' }}</td>
                                                 <td>{{ $profile->state }}</td>
                                                 <td class="professionalsTableProfessionalTd">
-                                                    <a class="edit" href="{{ route('symptoms') }}">
+                                                    <a class="edit" href="{{ url('profile/'.$profile->id) }}">
                                                         <i class="fa fa-eye" aria-hidden="true" style="font-size: 20px; color: #007bff"></i>
                                                     </a>
                                                 </td>
@@ -95,6 +95,7 @@
                             </div>
                         </div>
                     </div>
+                    <a href="{{ url('profile/') }}">aqui</a>
                 </div>
             </div>
         </div>

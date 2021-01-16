@@ -18,6 +18,7 @@ class CreateRecommendationsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->text('description');
+            $table->integer('profile_id')->nullable();
         });
     }
 

@@ -18,6 +18,7 @@ class CreateSymptomsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->text('description');
+            $table->text('formId');
         });
     }
 

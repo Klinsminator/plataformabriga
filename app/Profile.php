@@ -28,11 +28,7 @@ class Profile extends Model
 
     public function recommendation()
     {
-        return $this->belongsToMany('App\Recommendation');
+        return $this->hasOne('App\Recommendation');
     }
 
-    public function recommendationArea()
-    {
-        return $this->belongsToMany('App\RecommendationArea');
-    }
 }

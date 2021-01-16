@@ -15,4 +15,9 @@ class RecommendationArea extends Model
     {
         return $this->belongsToMany('App\Profile');
     }
+
+    public function Recommendation()
+    {
+        return $this->belongsToMany('App\Recommendation');
+    }
 }

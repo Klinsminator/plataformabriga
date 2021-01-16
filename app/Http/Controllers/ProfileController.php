@@ -226,4 +226,19 @@ class ProfileController extends Controller
         return view('dashboard', ['activeProfiles' => $activeProfile, 
             'inactiveProfiles' => $inactiveProfile]);
     }
+
+    /*public function getApplicantProfileView($id)
+    {
+        $applicantProfile = Profile::where('id', $id)->get();
+        $users = User::all();
+        $recommendation = Recommendation::all();
+        $recommendationArea = RecommendationArea::all();
+        return view('profiles/applicantProfile', ['id' => $applicantProfile,
+        'recommendation' => $recommendation, 'recommendationArea' => $recommendationArea]);
+    }*/
+
+    public function getApplicantProfileView()
+    {
+        return view('profiles/applicantProfile');
+    }
 }
